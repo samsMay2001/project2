@@ -1,0 +1,13 @@
+.media{
+    flex: 1;
+    width: 100px;
+    border-radius: 20px;
+    /* margin-left: auto; */
+}
+.upload-message {
+    background-color: #004cff;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}

@@ -1,0 +1,9 @@
+.mediaupload-btn { 
+    background-color: var(--twitter-color) !important;
+    border: none !important;
+    color: #ffffff !important;
+    height: 50px !important;
+    width: 50px !important;
+    /* margin-top: 20px !important; */
+    margin-left: 20px;
+}

@@ -21,7 +21,7 @@ export const SideBar = () => {
             <SidebarOption Icon={SearchIcon} text={'Explore'}/>
             <SidebarOption Icon={NotificationsNone} text={'Notifications'}/>
             <SidebarOption Icon={MailOutlineIcon} text={'Messages'}/>
-            <SidebarOption Icon={BookmarkBorderIcon} text={'Bookmarks'}/>
+            <SidebarOption Icon={BookmarkBorderIcon} text={'Saved'}/>
             <SidebarOption Icon={ListAltIcon} text={'Lists'}/>
             <SidebarOption Icon={PermIdentityIcon} text={'Profile'}/>
             <SidebarOption Icon={MoreHorizIcon} text={'More'}/>

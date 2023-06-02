@@ -9,7 +9,7 @@ import { getImg } from '../../assets/env'
 import img1 from '../../assets/images.png'
 import img2 from '../../assets/profile pic.jpg'
 
-export const Post = ({displayName, username, verified, timestamp}) => {
+export const Post = ({displayName, username, verified, text, imgSrc, videoSrc}) => {
     return (
         <div className='post'>
             <div className="post-avatar">
@@ -19,17 +19,18 @@ export const Post = ({displayName, username, verified, timestamp}) => {
                 <div className="post-header">
                     <div className="post-headerText">
                         <h3>
-                            Samuel Muhigirwa{" "}
+                            {displayName}{" "}
                             <span className='post-headerSpecial'>
-                                <VerifiedUserIcon className='post-badge'/> @sam_ever7
+                                {verified &&<VerifiedUserIcon className='post-badge'/>} @{username}
                             </span>
                         </h3>
                     </div>
                     <div className='post-headerDescription'>
-                        <p>This is my twitter clone</p>
+                        <p>{text}</p>
                     </div>
                 </div>
-                <img src={img2} alt="profile pic" />
+                {imgSrc && <img src={imgSrc} alt="profile pic" />}
+                {videoSrc && <video src={videoSrc} controls/>}
                 <div className="post-footer">
                     <ChatBubbleOutlineIcon fontSize='small'/>
                     <RepeatIcon fontSize='small'/>
