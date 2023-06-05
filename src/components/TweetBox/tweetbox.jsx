@@ -25,7 +25,12 @@ export const TweetBox = () => {
         }
         if (videoURL || imageURL || tweetMessage){
             // http request endpoint to add a new post on mongodb
-           
+            try{
+                const docRef = await addDoc(collection(db, "posts"), postObj)
+                console.log(postObj)
+            }catch(error){
+                console.log(error); 
+            }
         }
     }
     return (

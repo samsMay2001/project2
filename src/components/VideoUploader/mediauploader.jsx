@@ -23,16 +23,27 @@ export const MediaUploder = () => {
             setMedia(selectedFile); 
             const uploadTask = uploadBytesResumable(storageRef, selectedFile); 
             // http request to upload file to GridFSBucket. ************
-
-            // uploadTask.on('state_changed', (snapshot) => {
-            //     const progress =   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            //     setVideoProgress(progress)
-            // }, (error)=> {
-            //     console.log('Error uploading video', error); 
-            // }, async ()=> {
-            //     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref); 
-            //     setMediaURL(selectedFile, downloadURL); 
+            // const fileData = new FormData(); 
+            // fileData.append('file', selectedFile); 
+            // fetch('http://localhost:4000/upload', {
+            //     method: 'POST',
+            //     body: fileData
             // })
+            // .then( res => {
+            //     console.log(res); 
+            // })
+            // .catch(err => {
+            //     console.log(err);
+            // })
+            uploadTask.on('state_changed', (snapshot) => {
+                const progress =   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setVideoProgress(progress)
+            }, (error)=> {
+                console.log('Error uploading video', error); 
+            }, async ()=> {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref); 
+                setMediaURL(selectedFile, downloadURL); 
+            })
         }
     }
     function setMedia(selectedFile){

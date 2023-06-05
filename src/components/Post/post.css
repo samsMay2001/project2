@@ -19,6 +19,7 @@
 .post-body > img {
     border-radius: 20px;
     margin-top: 20px;
+    width: 600px;
 }
 .post-body > video {
     border-radius: 20px;

@@ -8,8 +8,11 @@ import './post.css'
 import { getImg } from '../../assets/env'
 import img1 from '../../assets/images.png'
 import img2 from '../../assets/profile pic.jpg'
+import { useState } from 'react'
+import { CommentSection } from '../CommentSection/commentSection'
 
-export const Post = ({displayName, username, verified, text, imgSrc, videoSrc}) => {
+export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, postID}) => {
+    const [showComments, setShowComments] = useState(true)
     return (
         <div className='post'>
             <div className="post-avatar">
@@ -37,6 +40,9 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc}) 
                     <FavoriteBorderIcon fontSize='small'/>
                     <PublishIcon fontSize='small'/>
                 </div>
+                {showComments &&<div className="comment-section">
+                    <CommentSection commentID={postID}/>
+                </div>}
             </div>
         </div>
     )
