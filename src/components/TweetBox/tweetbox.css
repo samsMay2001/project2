@@ -10,11 +10,13 @@
 } 
 .tweetBox-top-content{
     display: flex;
+    /* border: 1px dashed grey; */
 }
 .tweetBox-input{
-    width: 75%;
+    width: 74%;
     display: flex;
     padding: 20px;
+    
 }
 .tweetBox-input > input {
     flex: 1;

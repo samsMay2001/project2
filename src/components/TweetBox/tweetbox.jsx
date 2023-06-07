@@ -8,7 +8,7 @@ import { useAppContext } from '../../appContext/appContext'
 import {collection, addDoc} from 'firebase/firestore'
 import db from '../../firebase'
 export const TweetBox = () => {
-    const {videoURL, imageURL} = useAppContext()
+    const {videoURL, imageURL, setUploadedVideo, setVideoProgress, setVideoURL, setUploadedImage, setImageURL, posts, setPosts} = useAppContext()
     const [tweetMessage, setTweetMessage] = useState(""); 
     function handleChange(event){
         setTweetMessage(event.target.value)
@@ -27,7 +27,12 @@ export const TweetBox = () => {
             // http request endpoint to add a new post on mongodb
             try{
                 const docRef = await addDoc(collection(db, "posts"), postObj)
-                console.log(postObj)
+                const postsCopy = [ postObj, ...posts]
+                setPosts(postsCopy); 
+                setTweetMessage("")
+                setUploadedImage(null)
+                setVideoProgress(null)
+
             }catch(error){
                 console.log(error); 
             }

@@ -18,4 +18,27 @@
     z-index: 100;
     border: 1px solid var(--twitter-background);
     padding: 15px 20px;
+    display: flex;
+    
+    /* align-items: center; */
+}
+.useraccount ,.home{
+    width: 30px !important; 
+    height: 30px !important;
+    border-radius: 30px;
+    padding: 10px; 
+    margin-right: 10px;
+    background-color: var(--icon-background);
+    color: var(--icon-color);
+    cursor: pointer;
+}
+.useraccount:hover, .home:hover{
+    color: white;
+    background-color: var(--twitter-color);
+    transition: color 100ms ease-out; 
+    transition: background-color 100ms ease-out;
+}
+.feed-header-active{
+    background-color: var(--twitter-color);
+    color: white;
 }

@@ -1,5 +1,9 @@
 .widgets{
     flex: var(--sidebar-width); 
+    overflow-y: scroll;
+}
+.widgets::-webkit-scrollbar{
+    display: none;
 }
 .widgets-input { 
     display: flex;

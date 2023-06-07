@@ -1,0 +1,53 @@
+.user-acc-header-section{
+    border-bottom: 3px solid var(--twitter-background);
+}
+.user-acc-profile-img{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user-acc-pro-img{
+    width: 100% !important;
+    height: 100% !important;
+}
+.view-options{
+    width: 150px;
+    display: flex;
+    margin: auto;
+    margin-top: 20px;
+    justify-content: space-around;
+    margin-bottom: 8px;
+}
+.list-option, .settings-option, .saved-option{
+    background-color: var(--icon-background);
+    color: var(--icon-color);
+    padding: 10px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    border-radius: 30px;
+}
+.list-option:hover, .settings-option:hover, .saved-option:hover{
+    color: white;
+    background-color: var(--twitter-color);
+    transition: color 100ms ease-out; 
+    transition: background-color 100ms ease-out;
+}
+.user-acc-header-active{
+    background-color: var(--twitter-color);
+    color: white;
+}
+.user-acc-info{
+    width: 250px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+
+}
+.user-acc-info > h2 {
+    font-size: 18px;
+}

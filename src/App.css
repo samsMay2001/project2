@@ -1,12 +1,14 @@
 body{
   --twitter-color: #50b7f5; 
   --twitter-background: #e6ecf0; 
-  --sidebar-width: .26;
-  --content-width: .48;
+  --sidebar-width: .25;
+  --content-width: .5;
+  --icon-background: #ebebeb;
+  --icon-color: #4e4e4e;
 }
 .app {
   display: flex;
   height: 100vh;
-  max-width: 1300px;
+  max-width: 1500px;
   margin: auto;
 }

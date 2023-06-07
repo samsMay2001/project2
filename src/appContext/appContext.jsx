@@ -26,7 +26,6 @@ export const AppContext = ({children})=> {
         postArray.map((post, index) => {
             post.parentId = querySnapShot.docs[index].id
         })
-        console.log(postArray); 
         setPosts(postArray)
     }
     useEffect(()=> {

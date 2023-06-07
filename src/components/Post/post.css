@@ -3,9 +3,12 @@
     align-items: flex-start;
     border-bottom: 1px solid var(--twitter-background);
     padding-bottom: 10px;
+    /* border: 1px dashed grey; */
 }
 .post-avatar { 
-    padding: 20px; 
+    padding-top: 20px; 
+    padding-left: 20px; 
+    padding-right: 10px; 
 }
 .post-headerSpecial {
     font-weight: 600;
@@ -28,7 +31,9 @@
 }
 .post-body {
     flex: 1; 
-    padding: 10px
+    padding: 10px; 
+    padding-right: 20px;
+    /* border: 1px dashed grey; */
 }
 .post-footer {
     display: flex;
