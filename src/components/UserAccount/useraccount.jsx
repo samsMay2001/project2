@@ -7,6 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import imgs from '../../assets/images.png'
 import { useState } from 'react';
 import { Post } from '../Post/post';
+import { MultilineInput } from '../MultilineInput/multilineinput';
 
 export const UserAccount = ({posts, username, accountname, bio}) => {
     const [userPosts, setUserPosts] = useState(true)
@@ -27,7 +28,8 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
                 </div>
                 <div className="user-acc-info">
                     <h2>{accountname}</h2>
-                    <div className="user-acc-bio">{bio}</div>
+                    {bio && <div className="user-acc-bio">{bio}</div>}
+                    {!bio && <MultilineInput/>}
                 </div>
                 <div className='view-options'>
                     <div className={`list-option ${userPosts && 'user-acc-header-active'}` } onClick={()=> {setUserPosts(true); setUserSaved(false); setUserSettings(false)}}>
@@ -42,7 +44,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
                 </div>
             </div>
             <div className='user-acc-posts'>
-                {posts.map((item, index)=> displayUserPosts(item, index))}
+                {posts && posts.map((item, index)=> displayUserPosts(item, index))}
             </div>
         </div>
     )

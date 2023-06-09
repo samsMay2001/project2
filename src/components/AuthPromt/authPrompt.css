@@ -1,0 +1,13 @@
+.auth-prompt, .u12ccc1{
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    border: 1px dashed grey;
+    top: 20px;
+    right: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+.u12ccc1{
+    display: none;
+}

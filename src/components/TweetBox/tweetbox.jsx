@@ -6,7 +6,8 @@ import { MediaUploder } from '../VideoUploader/mediauploader'
 import { PostPreview } from '../PostPreview/postpreview'
 import { useAppContext } from '../../appContext/appContext'
 import {collection, addDoc} from 'firebase/firestore'
-import db from '../../firebase'
+import { db } from '../../firebase'
+// import db from '../../firebase'
 export const TweetBox = () => {
     const {videoURL, imageURL, setUploadedVideo, setVideoProgress, setVideoURL, setUploadedImage, setImageURL, posts, setPosts} = useAppContext()
     const [tweetMessage, setTweetMessage] = useState(""); 

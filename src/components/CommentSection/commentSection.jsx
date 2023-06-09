@@ -3,7 +3,8 @@ import { Avatar, Button } from '@mui/material'
 import './commentSection.css'
 import { useRef, useState } from 'react'
 import {collection, addDoc} from 'firebase/firestore'
-import db from '../../firebase'
+import { db } from '../../firebase'
+// import db from '../../firebase'
 
 export const CommentSection = ({commentID}) => {
     const {comments, setComments} = useAppContext()

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"; 
 import {collection, getDocs, orderBy, query} from 'firebase/firestore'
-import db from "../firebase";
-
+import { db } from "../firebase";
+// import {db} from "../firebase";
 const appContext = createContext(null)
 export const AppContext = ({children})=> {
     const [uploadedVid, setUploadedVideo] = useState(null)
@@ -11,6 +11,16 @@ export const AppContext = ({children})=> {
     const [imageURL, setImageURL] = useState(null)
     const [comments, setComments] = useState(null)
     const [posts, setPosts] = useState(null)
+    const [userLoggedIn, setUserLoggedIn] = useState(false); 
+    const [loggedUser, setLoggedUser] = useState({
+        username : null,
+        email: null, 
+        bio: null, 
+        accountname: null
+    });  
+    const [userTab, setUserTab] = useState(false)
+    const [homeTab, setHomeTab] = useState(true)
+    const [inputVal, setInputVal] = useState("")
 
     async function getComments(){
         const q = query(collection(db, 'comments'), orderBy('timeStamp', 'asc'))
@@ -28,9 +38,21 @@ export const AppContext = ({children})=> {
         })
         setPosts(postArray)
     }
+    function isUserLoggedIn(){
+        const user = JSON.parse(localStorage.getItem('my-key'))
+        if (user){
+            setUserLoggedIn(true);
+            let loggedUserCopy = {...user}
+            setLoggedUser(loggedUserCopy); 
+            setUserLoggedIn(true)
+            setUserTab(true)
+            setHomeTab(false)
+        }
+    }
     useEffect(()=> {
+        isUserLoggedIn();  
         getPosts(); 
-        getComments(); 
+        getComments();
     }, [])
     return (
         <appContext.Provider value={{
@@ -47,7 +69,17 @@ export const AppContext = ({children})=> {
             comments, 
             setComments, 
             posts, 
-            setPosts
+            setPosts, 
+            userLoggedIn, 
+            setUserLoggedIn, 
+            loggedUser, 
+            setLoggedUser,
+            userTab, 
+            setUserTab, 
+            homeTab, 
+            setHomeTab, 
+            inputVal, 
+            setInputVal, 
         }}>
             {children}
         </appContext.Provider>
