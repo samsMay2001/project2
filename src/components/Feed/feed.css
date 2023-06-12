@@ -23,14 +23,20 @@
     /* align-items: center; */
 }
 .useraccount ,.home{
-    width: 30px !important; 
-    height: 30px !important;
-    border-radius: 30px;
-    padding: 10px; 
-    margin-right: 10px;
     background-color: var(--icon-background);
     color: var(--icon-color);
     cursor: pointer;
+    border-radius: 40px;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user-acc-icon, .home-icon{
+    width: 30px !important;
+    height: 30px !important;
 }
 .useraccount:hover, .home:hover{
     color: white;

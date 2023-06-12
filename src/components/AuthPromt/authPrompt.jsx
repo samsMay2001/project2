@@ -15,6 +15,7 @@ export const AuthPrompt = () => {
     const {userLoggedIn, setUserLoggedIn, setUserTab, setHomeTab, setLoggedUser, loggedUser} = useAppContext()
     const [user, setUser] = useState(null); 
     const [username, setUsername] = useState('')
+    const [userAlreadyExist, setUserAlreadyExist] = useState(null)
     const handleGoogleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         try{
@@ -48,11 +49,17 @@ export const AuthPrompt = () => {
         }
         setUsername(""); 
     }
+    async function createAccWrapper(currentUser){
+        const usernameExists = await createAccNoUsername(currentUser, setLoggedUser, username, setUserAlreadyExist);
+        if (usernameExists){
+            setLocalStorage(usernameExists, setLoggedUser, setUserLoggedIn, setUserTab, setHomeTab); 
+        }
+    }
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, (currentUser)=> {
             if(currentUser){
                 setUser(currentUser); 
-                createAccNoUsername(currentUser, setLoggedUser, username); 
+                createAccWrapper(currentUser); 
             }else {
                 setUser(null)
             }
@@ -64,7 +71,7 @@ export const AuthPrompt = () => {
     return (
         <div className={`${userLoggedIn && 'u12ccc1'} ${!userLoggedIn && 'auth-prompt'}`}>
             {!user && <button onClick={handleGoogleSignIn}>Sign Up With Google</button> }
-            { user &&
+            { (user && !userAlreadyExist) &&
                 <div>
                     <input type="text" value={username} placeholder='Create a user name' onChange={handleChange}/><button onClick={addUserName}>Create Account</button>
                 </div>
