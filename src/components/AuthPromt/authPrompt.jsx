@@ -20,7 +20,6 @@ export const AuthPrompt = () => {
         const provider = new GoogleAuthProvider();
         try{
             await signInWithPopup(auth, provider)
-            console.log('Sign in with Google'); 
         }catch(err){
             console.log(err)
         }

@@ -20,7 +20,6 @@ export const SideBar = () => {
     async function handleSignOut(){
         try {
             await signOut(auth); 
-            console.log("User signed out")
             setUserTab(false)
             setHomeTab(true)
             setLoggedUser({}); 
