@@ -10,6 +10,11 @@
     padding-left: 20px; 
     padding-right: 10px; 
 }
+
+.post-headerText{
+    position: relative;
+}
+
 .post-headerSpecial {
     font-weight: 600;
     font-size: 12px; 

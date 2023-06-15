@@ -16,7 +16,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
     function displayUserPosts(item, index){
         if (item.username.trim() === username ){
             return (
-                <Post key={index} displayName={item.displayName} text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
+                <Post showDel={true} key={index} postIndex={index} displayName={item.displayName} text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
             )
         }
     }

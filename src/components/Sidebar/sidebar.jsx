@@ -16,7 +16,7 @@ import { auth } from '../../firebase';
 import { useAppContext } from '../../appContext/appContext';
 
 export const SideBar = () => {
-    const {setUserTab, setHomeTab, setLoggedUser, setInputVal, setUserLoggedIn} = useAppContext()
+    const {setUserTab, setHomeTab, setLoggedUser, setInputVal, setUserLoggedIn, userLoggedIn} = useAppContext()
     async function handleSignOut(){
         try {
             await signOut(auth); 
@@ -42,7 +42,9 @@ export const SideBar = () => {
             <SidebarOption Icon={ListAltIcon} text={'Lists'}/>
             <SidebarOption Icon={PermIdentityIcon} text={'Profile'}/>
             <SidebarOption Icon={MoreHorizIcon} text={'More'}/>
-            <Button onClick={handleSignOut} variant='outlined' className='sidebar-tweet' fullWidth>Sign Out</Button>
+            { userLoggedIn &&
+                <Button onClick={handleSignOut} variant='outlined' className='sidebar-tweet' fullWidth>Sign Out</Button>
+            }
         </div>
     )
 }

@@ -10,11 +10,17 @@ import img1 from '../../assets/images.png'
 import img2 from '../../assets/profile pic.jpg'
 import { useState } from 'react'
 import { CommentSection } from '../CommentSection/commentSection'
+import { PostMenu } from '../PostMenu/postmenu'
+import { useAppContext } from '../../appContext/appContext'
 
-export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, postID}) => {
+export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel}) => {
+    const {setHidden} = useAppContext()
     const [showComments, setShowComments] = useState(true)
+    function handlePostClick(e){
+        setHidden(true)
+    }
     return (
-        <div className='post'>
+        <div className='post' onClick={handlePostClick}>
             <div className="post-avatar">
                 <Avatar src={img1}/>
             </div>
@@ -27,6 +33,7 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
                                 {verified &&<VerifiedUserIcon className='post-badge'/>} @{username}
                             </span>
                         </h3>
+                        <PostMenu showDel={showDel} postIndex = {postIndex}/>
                     </div>
                     <div className='post-headerDescription'>
                         <p>{text}</p>

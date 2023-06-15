@@ -21,6 +21,7 @@ export const AppContext = ({children})=> {
     const [userTab, setUserTab] = useState(false)
     const [homeTab, setHomeTab] = useState(true)
     const [inputVal, setInputVal] = useState("")
+    const [hidden, setHidden] = useState(true)
 
     async function getComments(){
         const q = query(collection(db, 'comments'), orderBy('timeStamp', 'asc'))
@@ -80,6 +81,8 @@ export const AppContext = ({children})=> {
             setHomeTab, 
             inputVal, 
             setInputVal, 
+            hidden, 
+            setHidden
         }}>
             {children}
         </appContext.Provider>

@@ -17,6 +17,13 @@ export const Feed = () => {
         setUserTab(true); 
         setHomeTab(false); 
     }
+    function showDeleteBtn(item){
+        if (item.username.trim() === loggedUser.username){
+            return true
+        }else {
+            return false
+        }
+    }
     return (
         
             <div className="feed">
@@ -30,7 +37,9 @@ export const Feed = () => {
                 </div>
                 {homeTab && <TweetBox/>}
                 {(posts && homeTab) && posts.map((item, index)=> (
-                    <Post key={index} displayName={item.displayName} text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
+                    <div>
+                        <Post showDel = {showDeleteBtn(item)} key={index} postIndex={index} displayName={item.displayName} text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
+                    </div>
                 ))}
                 {(userTab&&loggedUser.username) && <UserAccount posts={posts} username={loggedUser.username} bio={loggedUser.bio} accountname = {loggedUser.accountname}/>}
             </div>
