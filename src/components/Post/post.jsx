@@ -32,6 +32,9 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
                             <span className='post-headerSpecial'>
                                 {verified &&<VerifiedUserIcon className='post-badge'/>} @{username}
                             </span>
+                            <span className='follow-status'>
+                                follow
+                            </span>
                         </h3>
                         <PostMenu showDel={showDel} postIndex = {postIndex}/>
                     </div>

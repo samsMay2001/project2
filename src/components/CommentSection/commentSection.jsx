@@ -30,15 +30,15 @@ export const CommentSection = ({commentID}) => {
             replyTo: user.username,
             user : loggedUser.username
         }
-        if (comment !== "" && loggedUser){
+        if (comment !== "" && loggedUser.username){
             try{
                 let commentsCopy = [...comments, postObj]
                 setComments(commentsCopy); 
-                setComment(''); 
             }catch(error){
                 console.log(error); 
             }
         }
+        setComment(''); 
     }
     async function getUser(){
         // for some reason this function runs twice, you need to fix that 

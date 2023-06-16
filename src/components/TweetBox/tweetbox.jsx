@@ -9,7 +9,7 @@ import {collection, addDoc} from 'firebase/firestore'
 import { db } from '../../firebase'
 // import db from '../../firebase'
 export const TweetBox = () => {
-    const {videoURL, imageURL, setUploadedVideo, setVideoProgress, setVideoURL, setUploadedImage, setImageURL, posts, setPosts} = useAppContext()
+    const {videoURL, imageURL, setUploadedVideo, setVideoProgress, setVideoURL, setUploadedImage, setImageURL, posts, setPosts, loggedUser} = useAppContext()
     const [tweetMessage, setTweetMessage] = useState(""); 
     function handleChange(event){
         setTweetMessage(event.target.value)
@@ -19,7 +19,7 @@ export const TweetBox = () => {
             displayName: 'Samuel Muhigirwa', 
             imageURL : imageURL,
             text : tweetMessage, 
-            username : 'sam_ever7', 
+            username : loggedUser.username, 
             verified : true,
             videoURL : videoURL, 
             timeStamp : new Date().getTime()
@@ -27,12 +27,12 @@ export const TweetBox = () => {
         if (videoURL || imageURL || tweetMessage){
             // http request endpoint to add a new post on mongodb
             try{
-                const docRef = await addDoc(collection(db, "posts"), postObj)
                 const postsCopy = [ postObj, ...posts]
                 setPosts(postsCopy); 
                 setTweetMessage("")
                 setUploadedImage(null)
                 setVideoProgress(null)
+                setImageURL(null)
 
             }catch(error){
                 console.log(error); 
@@ -45,7 +45,7 @@ export const TweetBox = () => {
                 <div className="tweetBox-top-content">
                     <div className="tweetBox-input">
                         <Avatar src={imgs}/>
-                        <input placeholder="What's happening" value={tweetMessage} onChange={handleChange}/>
+                        <input placeholder="What's happening" value={tweetMessage} onChange={handleChange} multiple/>
                     </div>
                     <div className='upload-btn'>
                         <MediaUploder/>

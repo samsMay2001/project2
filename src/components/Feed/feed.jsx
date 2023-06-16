@@ -24,6 +24,9 @@ export const Feed = () => {
             return false
         }
     }
+    // useEffect(()=>{
+    //     console.log(loggedUser)
+    // }, [loggedUser])
     return (
         
             <div className="feed">
@@ -35,7 +38,7 @@ export const Feed = () => {
                         <AccountCircleIcon className='user-acc-icon'  />
                     </div>}
                 </div>
-                {homeTab && <TweetBox/>}
+                {(homeTab && loggedUser.username) && <TweetBox/>}
                 {(posts && homeTab) && posts.map((item, index)=> (
                     <div>
                         <Post showDel = {showDeleteBtn(item)} key={index} postIndex={index} displayName={item.displayName} text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
