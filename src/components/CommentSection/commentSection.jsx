@@ -2,13 +2,14 @@ import { useAppContext } from '../../appContext/appContext'
 import { Avatar, Button } from '@mui/material'
 import './commentSection.css'
 import { useRef, useState } from 'react'
-import {collection, addDoc} from 'firebase/firestore'
+import {collection, addDoc, getDoc, doc} from 'firebase/firestore'
+import DeleteIcon from '@mui/icons-material/Delete';
 import { db } from '../../firebase'
+import { Comment } from '../Comment/comment'
 // import db from '../../firebase'
 
 export const CommentSection = ({commentID}) => {
-    const {comments, setComments} = useAppContext()
-    const [showComment, setShowComment] = useState(false)
+    const {comments, setComments, loggedUser} = useAppContext()
     const [parentComment, setParentComment] = useState(null)
     const [comment, setComment] = useState('')
     const ref = useRef()
@@ -19,16 +20,18 @@ export const CommentSection = ({commentID}) => {
         ref.current.focus()
     }
     async function postComment(){
+        const user = await getUser()
         const postObj = {
             likes: 20, 
             parentComment: parentComment,
             text: comment, 
             timeStamp: new Date().getTime(), 
-            userID: commentID
+            postID: commentID, 
+            replyTo: user.username,
+            user : loggedUser.username
         }
-        if (comment !== ""){
+        if (comment !== "" && loggedUser){
             try{
-                const docRef = await addDoc(collection(db, "comments"), postObj)
                 let commentsCopy = [...comments, postObj]
                 setComments(commentsCopy); 
                 setComment(''); 
@@ -37,26 +40,24 @@ export const CommentSection = ({commentID}) => {
             }
         }
     }
+    async function getUser(){
+        // for some reason this function runs twice, you need to fix that 
+        try{
+            const postRef = doc(db, 'posts', commentID)
+            const postSnapShot = await getDoc(postRef); 
+            if (postSnapShot.exists()){
+                const postData = postSnapShot.data()
+                return postData; 
+            }
+        }catch(err){
+            console.log(err)
+        }
+    }
     function displayComments(item, index){
     
-        if (item.userID.trim() === commentID){
+        if (item.postID.trim() === commentID){
                 return (
-                    <div key={index} className="comment-box">
-                        <div className='comment-avatar'>
-                            <Avatar/>
-                        </div>
-                        <div className='comment-text-content'>
-                            <div className='comment-user'>
-                                @{"testuser "}{"2m"}
-                            </div>
-                            <div className='comment-text'>
-                                {item.text}
-                            </div>
-                            <div className='comment-reply' onClick={(event)=> {handleMainReply(event, item)}}>
-                                Reply
-                            </div>
-                        </div>
-                    </div>
+                    <Comment key={index}  commentIndex={index} zIndex={comments.length-index} username={item.user} commentTxt={item.text} handleMainReply={handleMainReply}/>
                 )
         }
     }
