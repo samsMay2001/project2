@@ -16,7 +16,9 @@ export const AppContext = ({children})=> {
         username : null,
         email: null, 
         bio: null, 
-        accountname: null
+        accountname: null, 
+        followers: [],
+        following: []
     });  
     const [userTab, setUserTab] = useState(false)
     const [homeTab, setHomeTab] = useState(true)

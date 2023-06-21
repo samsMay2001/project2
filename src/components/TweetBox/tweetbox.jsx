@@ -27,6 +27,7 @@ export const TweetBox = () => {
         if (videoURL || imageURL || tweetMessage){
             // http request endpoint to add a new post on mongodb
             try{
+                const docRef = await addDoc(collection(db, "posts"), postObj)
                 const postsCopy = [ postObj, ...posts]
                 setPosts(postsCopy); 
                 setTweetMessage("")

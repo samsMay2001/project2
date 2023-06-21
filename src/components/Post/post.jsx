@@ -8,19 +8,45 @@ import './post.css'
 import { getImg } from '../../assets/env'
 import img1 from '../../assets/images.png'
 import img2 from '../../assets/profile pic.jpg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CommentSection } from '../CommentSection/commentSection'
 import { PostMenu } from '../PostMenu/postmenu'
 import { useAppContext } from '../../appContext/appContext'
+import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
+import { db } from '../../firebase'
 
-export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel}) => {
-    const {setHidden} = useAppContext()
+export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
+    const {setHidden, loggedUser, setLoggedUser} = useAppContext()
     const [showComments, setShowComments] = useState(true)
+    const style = {zIndex}
     function handlePostClick(e){
         setHidden(true)
     }
+    async function follow(){
+        // console.log(loggedUser.username)
+        const q = query(collection(db, 'users'), where('username', '==', loggedUser.username))
+        const querySnapShot = await getDocs(q); 
+        if (querySnapShot.docs.length > 0){
+            const collectionID = querySnapShot.docs[0].id
+            const userData = querySnapShot.docs[0].data()
+            const docRef = doc(db, 'users', collectionID)
+            await updateDoc(docRef, {
+                following : [...userData.following, username]
+            })
+            console.log('following...')
+            const loggedUserCopy = {...loggedUser}
+            loggedUserCopy.following = [...userData.following, username]
+            //update the local storage
+            const appKey = "my-key"
+            localStorage.setItem(appKey, JSON.stringify(loggedUserCopy))
+
+            // update the loggedUser sate
+            setLoggedUser(loggedUserCopy);
+        }
+        // const documentRef = doc(db, 'users', )
+    }
     return (
-        <div className='post' onClick={handlePostClick}>
+        <div className='post' onClick={handlePostClick} >
             <div className="post-avatar">
                 <Avatar src={img1}/>
             </div>
@@ -32,11 +58,11 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
                             <span className='post-headerSpecial'>
                                 {verified &&<VerifiedUserIcon className='post-badge'/>} @{username}
                             </span>
-                            <span className='follow-status'>
+                            {!following && <span className='follow-status' onClick={follow}>
                                 follow
-                            </span>
+                            </span>}
                         </h3>
-                        <PostMenu showDel={showDel} postIndex = {postIndex}/>
+                        
                     </div>
                     <div className='post-headerDescription'>
                         <p>{text}</p>
@@ -50,9 +76,10 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
                     <FavoriteBorderIcon fontSize='small'/>
                     <PublishIcon fontSize='small'/>
                 </div>
-                {showComments &&<div className="comment-section">
+                {showComments &&<div className="comment-section" >
                     <CommentSection commentID={postID}/>
                 </div>}
+                <PostMenu showDel={showDel} postIndex = {postIndex} />
             </div>
         </div>
     )

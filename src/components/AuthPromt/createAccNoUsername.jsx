@@ -7,7 +7,9 @@ export async function createAccNoUsername(currentUser, setLoggedUser, username, 
         username : username, 
         email : userEmail,
         bio: "Hello! I'm a react developer and this is one of my react projects",
-        accountname: currentUser.displayName
+        accountname: currentUser.displayName, 
+        followers: [], 
+        following: []
     }
     const user = JSON.parse(localStorage.getItem('my-key'))
     if(user == null){

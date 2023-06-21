@@ -4,6 +4,7 @@
     border-bottom: 1px solid var(--twitter-background);
     padding-bottom: 10px;
     user-select: none;
+    position:relative; 
     /* border: 1px dashed grey; */
 }
 .post-avatar { 
