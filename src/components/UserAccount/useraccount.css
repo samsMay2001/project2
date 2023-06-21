@@ -18,9 +18,10 @@
     width: 150px;
     display: flex;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 15px;
     justify-content: space-around;
     margin-bottom: 8px;
+    /* border: 1px dashed grey; */
 }
 .list-option, .settings-option, .saved-option{
     background-color: var(--icon-background);
@@ -44,10 +45,18 @@
     width: 250px;
     margin: auto;
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     text-align: center;
 
 }
 .user-acc-info > h2 {
     font-size: 18px;
+}
+.add-bio{
+    /* border: 1px dashed grey; */
+    text-align: center;
+    font-weight: 600;
+    color: #0967e3;
+    user-select: none;
+    cursor: pointer;
 }

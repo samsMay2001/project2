@@ -6,26 +6,32 @@ export async function createAccNoUsername(currentUser, setLoggedUser, username, 
     let postObj = {
         username : username, 
         email : userEmail,
-        bio: "Hello! I'm a react developer and this is one of my react projects",
+        bio: currentUser.bio,
         accountname: currentUser.displayName, 
         followers: [], 
         following: []
     }
-    const user = JSON.parse(localStorage.getItem('my-key'))
-    if(user == null){
-        setLoggedUser(postObj); 
-    }
+    
+    
     const q = query(collection(db, 'users'), where("email", "==", userEmail))
     const querySnapShot = await getDocs(q); 
     if (querySnapShot.docs.length == 0){
+        // if that user doesn't exist, create them 
         try{
             const docRef = await addDoc(collection(db, "users"), postObj)
         }catch(err){
             console.log(err)
         }
     }else {
+        // the user already exists, just return their username
         const user = querySnapShot.docs[0].data()
         if (user.username.length > 0){
+            const users = JSON.parse(localStorage.getItem('my-key'))
+            // updates the bio on the loggedUser
+            if(users == null){
+                postObj.bio = user.bio
+                setLoggedUser(postObj); 
+            }
         return user.username.trim()
         }
     }

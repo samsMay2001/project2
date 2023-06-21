@@ -26,12 +26,11 @@ export const Feed = () => {
     }
     function userFollowing(item){
         // console.log(JSON.parse(localStorage.getItem('my-key')))
-        const condition1 = loggedUser.username.trim() === item.username.trim()
         // console.log(condition1)
-        if (loggedUser.following){
+
+        if (loggedUser.username !== null){
+            const condition1 = loggedUser.username.trim() === item.username.trim()
             const followIndex = loggedUser.following.findIndex(i => i===item.username)
-            const condition2 = followIndex > -1; 
-            // console.log(loggedUser.following); 
             if ((followIndex > -1)){
                 return true;
             }else{
@@ -41,12 +40,10 @@ export const Feed = () => {
                     return false
                 }
             }
-
+        } else {
+            return true
         }
     }
-    // useEffect(()=>{
-    //     console.log(loggedUser)
-    // }, [loggedUser])
     return (
         
             <div className="feed">
@@ -61,7 +58,14 @@ export const Feed = () => {
                 {(homeTab && loggedUser.username) && <TweetBox/>}
                 {(posts && homeTab) && posts.map((item, index)=> (
                     <div>
-                        <Post zIndex={posts.length-index} following={userFollowing(item)} showDel = {showDeleteBtn(item)} key={index} postIndex={index} displayName={item.displayName} text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
+                        <Post 
+                        zIndex={posts.length-index} 
+                        following={userFollowing(item)} 
+                        showDel = {showDeleteBtn(item)} 
+                        key={index} 
+                        postIndex={index} 
+                        displayName={item.displayName} 
+                        text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
                     </div>
                 ))}
                 {(userTab&&loggedUser.username) && <UserAccount posts={posts} username={loggedUser.username} bio={loggedUser.bio} accountname = {loggedUser.accountname}/>}
