@@ -39,7 +39,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
             })
             const loggedUserCopy = {...loggedUser}
             loggedUserCopy.bio = value
-            localStorage.setItem('my-key', loggedUserCopy)
+            localStorage.setItem('my-key', JSON.stringify(loggedUserCopy))
             setLoggedUser(loggedUserCopy) 
             setValue("")
         }catch(err){
