@@ -1,4 +1,4 @@
-import { Button, Avatar } from '@mui/material'
+import { Button, Avatar, TextareaAutosize } from '@mui/material'
 import imgs from '../../assets/images.png'
 import './tweetbox.css'
 import { useState } from 'react'
@@ -40,13 +40,15 @@ export const TweetBox = () => {
             }
         }
     }
+    
     return (
         <div className='tweetBox'>
             <form action="">
                 <div className="tweetBox-top-content">
                     <div className="tweetBox-input">
                         <Avatar src={imgs}/>
-                        <input placeholder="What's happening" value={tweetMessage} onChange={handleChange} multiple/>
+                        {/* <input placeholder="What's happening" value={tweetMessage} onChange={handleChange} /> */}
+                        <TextareaAutosize className='tweet-box-input' placeholder="What's happening..." value={tweetMessage} onChange={handleChange}/>
                     </div>
                     <div className='upload-btn'>
                         <MediaUploder/>

@@ -25,6 +25,16 @@
     border: none;
     outline-style: none;    
 }
+.tweet-box-input{
+    flex: 1;
+    margin-left: 10px;
+    font-size: 20px; 
+    border: none;
+    outline-style: none;    
+    font-family: inherit;
+    padding: 10px;
+    resize: none;
+}
 .tweetBox-btn { 
     background-color: var(--twitter-color) !important;
     border: none !important;

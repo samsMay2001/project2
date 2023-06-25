@@ -57,6 +57,11 @@
     justify-content: space-between;
     margin-top: 10px;
 }
+.post-headerDescription{
+    /* border: 1px dashed grey; */
+    width: 90%;
+    white-space: pre-line;
+}
 
 
 

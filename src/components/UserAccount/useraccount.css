@@ -60,3 +60,7 @@
     user-select: none;
     cursor: pointer;
 }
+.user-acc-bio{
+    /* border: 1px dashed grey; */
+    white-space: pre-line;
+}

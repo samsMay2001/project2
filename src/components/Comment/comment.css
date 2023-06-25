@@ -17,6 +17,10 @@
     border-radius: 10px;
     /* border: 1px dashed grey; */
 }
+.comment-text{
+    /* border: 1px dashed grey; */
+    white-space: pre-line;
+}
 .comment-user{
     color: #4a4a4a;
     font-size: 13px;
@@ -46,6 +50,7 @@
     margin-top: 10px;
     background-color: var(--twitter-background);
     border-radius: 30px;
+    /* align-items: center; */
 
 }
 .comment-input > input {
@@ -58,6 +63,23 @@
     padding-left: 30px;
     font-weight: 600;
     color: #4a4a4a;
+    
+}
+.comment-box-input{
+    flex: 0.95;
+    border: 0;
+    outline: none;
+    border-top-left-radius:30px ;
+    border-bottom-left-radius:30px;
+    background-color: transparent;
+    padding-left: 30px;
+    font-weight: 600;
+    color: #4a4a4a;
+    resize: none;
+    font-family: inherit;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    /* border: 1px dashed grey; */
 }
 .comment-post-btn {
     /* background-color: var(--twitter-color) !important; */

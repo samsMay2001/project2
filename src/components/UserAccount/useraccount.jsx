@@ -55,7 +55,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
                 <div className="user-acc-info">
                     <h2>{accountname}</h2>
                     {bio && <div className="user-acc-bio">{bio}</div>}
-                    {!bio && <MultilineInput onChange={handleChange} value={value}/>}
+                    {!bio && <MultilineInput textAlign="center" placeholder={"Add a Bio..."} onChange={handleChange} value={value}/>}
                 </div>
                 {(value.length>1) &&<div className='add-bio' onClick={addBio}>Add Bio</div>}
                 <div className='view-options'>

@@ -1,5 +1,5 @@
 import { useAppContext } from '../../appContext/appContext'
-import { Avatar, Button } from '@mui/material'
+import { Avatar, Button, TextareaAutosize } from '@mui/material'
 import './commentSection.css'
 import { useRef, useState } from 'react'
 import {collection, addDoc, getDoc, doc} from 'firebase/firestore'
@@ -64,7 +64,8 @@ export const CommentSection = ({commentID}) => {
     return (
         <div className='comment-section-content'>
             <div className="comment-input">
-                <input ref={ref} type="text" name="" id="" placeholder='Write a comment' value={comment} onChange={handleChange}/>
+                {/* <input ref={ref} type="text" name="" id="" placeholder='Write a comment' value={comment} onChange={handleChange}/> */}
+                <TextareaAutosize ref={ref} className='comment-box-input' placeholder="write a comment" value={comment} onChange={handleChange}/>
                 <Button className='comment-post-btn' onClick={postComment}>Post</Button>
             </div>
             {comments.map((item, index)=> (
