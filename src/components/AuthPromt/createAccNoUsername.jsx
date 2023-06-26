@@ -30,6 +30,8 @@ export async function createAccNoUsername(currentUser, setLoggedUser, username, 
             // updates the bio on the loggedUser
             if(users == null){
                 postObj.bio = user.bio
+                postObj.followers = user.followers
+                postObj.following = user.following
                 setLoggedUser(postObj); 
             }
         return user.username.trim()

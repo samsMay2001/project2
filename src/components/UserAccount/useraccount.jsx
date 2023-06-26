@@ -11,6 +11,7 @@ import { MultilineInput } from '../MultilineInput/multilineinput';
 import { collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAppContext } from '../../appContext/appContext';
+import { userFollowing } from '../Feed/userFollowing';
 
 export const UserAccount = ({posts, username, accountname, bio}) => {
     const {loggedUser, setLoggedUser} = useAppContext()
@@ -22,7 +23,18 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
     function displayUserPosts(item, index){
         if (item.username.trim() === username ){
             return (
-                <Post showDel={true} key={index} postIndex={index} displayName={item.displayName} text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
+                <Post 
+                showDel={true} 
+                following={userFollowing(item, loggedUser)}
+                key={index} 
+                postIndex={index} 
+                displayName={item.displayName} 
+                text={item.text} 
+                username={item.username} 
+                verified={item.verified} 
+                videoSrc={item.videoURL} 
+                imgSrc={item.imageURL} 
+                postID={item.parentId}/>
             )
         }
     }

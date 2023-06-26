@@ -6,6 +6,7 @@ import { useAppContext } from '../../appContext/appContext'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import { UserAccount } from '../UserAccount/useraccount'
+import { userFollowing } from './userFollowing'
 export const Feed = () => {
     const {posts, loggedUser, userTab,setUserTab, homeTab, setHomeTab} = useAppContext()
     // console.log(loggedUser)
@@ -24,26 +25,6 @@ export const Feed = () => {
             return false
         }
     }
-    function userFollowing(item){
-        // console.log(JSON.parse(localStorage.getItem('my-key')))
-        // console.log(condition1)
-
-        if (loggedUser.username !== null){
-            const condition1 = loggedUser.username.trim() === item.username.trim()
-            const followIndex = loggedUser.following.findIndex(i => i===item.username)
-            if ((followIndex > -1)){
-                return true;
-            }else{
-                if(condition1){
-                    return true
-                }else {
-                    return false
-                }
-            }
-        } else {
-            return true
-        }
-    }
     return (
         
             <div className="feed">
@@ -51,7 +32,7 @@ export const Feed = () => {
                     <div onClick={handleHomeClick} className={`home ${homeTab && 'feed-header-active'}`}>
                         <HomeIcon className='home-icon' />
                     </div>
-                    {loggedUser.username && <div onClick={handleUserClick} className={`useraccount ${userTab && 'feed-header-active'}`}>
+                    {(loggedUser.username) && <div onClick={handleUserClick} className={`useraccount ${userTab && 'feed-header-active'}`}>
                         <AccountCircleIcon className='user-acc-icon'  />
                     </div>}
                 </div>
@@ -60,7 +41,7 @@ export const Feed = () => {
                     <div>
                         <Post 
                         zIndex={posts.length-index} 
-                        following={userFollowing(item)} 
+                        following={userFollowing(item, loggedUser)} 
                         showDel = {showDeleteBtn(item)} 
                         key={index} 
                         postIndex={index} 
