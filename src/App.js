@@ -1,20 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
-import { SideBar } from './components/Sidebar/sidebar';
-import { Feed } from './components/Feed/feed';
-import { Widgets } from './components/Widgets/widgets';
 import { AppContext } from './appContext/appContext';
-import { AuthPrompt } from './components/AuthPromt/authPrompt';
+import { Main } from './components/Main/Main';
 
 
 function App() {
   return (
-    <div className="app">
+    <div>
       <AppContext>
-        <AuthPrompt/>
-        <SideBar/>
-        <Feed/>
-        <Widgets/>
+        <Main/>
       </AppContext>
     </div>
   );

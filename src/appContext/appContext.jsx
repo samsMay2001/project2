@@ -24,7 +24,7 @@ export const AppContext = ({children})=> {
     const [homeTab, setHomeTab] = useState(true)
     const [inputVal, setInputVal] = useState("")
     const [hidden, setHidden] = useState(true)
-
+    const [appFocus, setAppFocus] = useState(true); 
     async function getComments(){
         const q = query(collection(db, 'comments'), orderBy('timeStamp', 'asc'))
         const querySnapShot = await getDocs(q); 
@@ -84,7 +84,9 @@ export const AppContext = ({children})=> {
             inputVal, 
             setInputVal, 
             hidden, 
-            setHidden
+            setHidden, 
+            appFocus, 
+            setAppFocus
         }}>
             {children}
         </appContext.Provider>

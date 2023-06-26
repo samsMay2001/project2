@@ -6,8 +6,8 @@ import { collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/fi
 import { db } from '../../firebase';
 import { useAppContext } from '../../appContext/appContext';
 
-export const Comment = ({username, commentTxt, handleMainReply, zIndex, commentIndex}) => {
-    const {comments, setComments, loggedUser} = useAppContext()
+export const Comment = ({ username, commentTxt, handleMainReply, zIndex, commentIndex}) => {
+    const {comments, setComments, loggedUser, appFocus, setAppFocus} = useAppContext()
     const [showEdit, setShowEdit] = useState(false)
     const [activeMenu, setActiveMenu] = useState(false)
     const style = {zIndex}
@@ -18,8 +18,13 @@ export const Comment = ({username, commentTxt, handleMainReply, zIndex, commentI
             setShowEdit(false)
         }
     }
-    function handleCommentMenu(){
-        setActiveMenu((oldVal)=> !oldVal)
+    function handleCommentMenu(e){
+        // setAppFocus(false)
+        e.stopPropagation();
+        setAppFocus(false); 
+        setActiveMenu((oldVal)=> {
+            return !oldVal
+        })
     }
     async function deleteComment(){
         await delComment()
@@ -42,6 +47,11 @@ export const Comment = ({username, commentTxt, handleMainReply, zIndex, commentI
     useEffect(()=>{
         showMenu()
     },[])
+    useEffect(()=>{
+        if (appFocus){
+            setActiveMenu(false); 
+        }
+    },[appFocus])
     return (
         <div className='comment-box' style={style}>
             <div className="comment-avatar">

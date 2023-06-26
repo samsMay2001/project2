@@ -6,11 +6,13 @@ import { useAppContext } from '../../appContext/appContext';
 import { collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useState } from 'react';
+import { useEffect } from 'react';
 export const PostMenu = ({postIndex, showDel}) => {
-    const { posts, setPosts} = useAppContext(); 
+    const { posts, setPosts, appFocus, setAppFocus} = useAppContext(); 
     const [hidden, setHidden] = useState(true)
     function handlePostMenu(e){
         e.stopPropagation();
+        setAppFocus(false)
         setHidden((oldVal)=> {
             return !oldVal
         })
@@ -41,10 +43,16 @@ export const PostMenu = ({postIndex, showDel}) => {
             console.log(err)
         }
     }
+    useEffect(()=>{
+        if (appFocus){
+            // console.log(appFocus)
+            setHidden(true)
+        }
+    }, [appFocus])
 
     return (
         <div>
-            <div className={`post-menu-btn ${!hidden && 'post-menu-active'}`} onClick={handlePostMenu}>
+            <div className={`post-menu-btn ${(!hidden) && 'post-menu-active'}`} onClick={handlePostMenu}>
                 <MoreVertIcon/>
             </div>
             {!hidden && <div className="post-menu" >
