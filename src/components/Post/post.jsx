@@ -23,7 +23,26 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
         setHidden(true)
     }
     async function follow(){
-        // console.log(loggedUser.username)
+        // user who's being followed
+        const q1 = query(collection(db, 'users'), where('username', '==', username))
+        const querySnapShot1 = await getDocs(q1)
+        try{
+            const userData = await addFollowing()
+            await addFollowers()
+            const loggedUserCopy = {...loggedUser}
+            loggedUserCopy.following = [...userData.following, username]
+            //update the local storage
+            const appKey = "my-key"
+            localStorage.setItem(appKey, JSON.stringify(loggedUserCopy))
+            // update the loggedUser sate
+            setLoggedUser(loggedUserCopy);
+
+        }catch(err){
+            console.log(err)
+        }
+    }
+    async function addFollowing(){
+        // user who's doing the following
         const q = query(collection(db, 'users'), where('username', '==', loggedUser.username))
         const querySnapShot = await getDocs(q); 
         if (querySnapShot.docs.length > 0){
@@ -33,17 +52,22 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
             await updateDoc(docRef, {
                 following : [...userData.following, username]
             })
-            console.log('following...')
-            const loggedUserCopy = {...loggedUser}
-            loggedUserCopy.following = [...userData.following, username]
-            //update the local storage
-            const appKey = "my-key"
-            localStorage.setItem(appKey, JSON.stringify(loggedUserCopy))
-
-            // update the loggedUser sate
-            setLoggedUser(loggedUserCopy);
+            console.log('updated the following array')
+            return userData; 
         }
-        // const documentRef = doc(db, 'users', )
+    }
+    async function addFollowers(){
+        const q = query(collection(db, 'users'), where('username', '==', username))
+        const querySnapShot = await getDocs(q); 
+        if (querySnapShot.docs.length > 0){
+            const collectionID = querySnapShot.docs[0].id
+            const userData = querySnapShot.docs[0].data()
+            const docRef = doc(db, 'users', collectionID)
+            await updateDoc(docRef, {
+                followers : [...userData.followers, loggedUser.username]
+            })
+            console.log('updated the followers array')
+        }
     }
     return (
         <div className='post' onClick={handlePostClick} >

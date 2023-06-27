@@ -46,7 +46,12 @@ export const Feed = () => {
                         key={index} 
                         postIndex={index} 
                         displayName={item.displayName} 
-                        text={item.text} username={item.username} verified={item.verified} videoSrc={item.videoURL} imgSrc={item.imageURL} postID={item.parentId}/>
+                        text={item.text} 
+                        username={item.username} 
+                        verified={item.verified} 
+                        videoSrc={item.videoURL} 
+                        imgSrc={item.imageURL} 
+                        postID={item.parentId}/>
                     </div>
                 ))}
                 {(userTab&&loggedUser.username) && <UserAccount posts={posts} username={loggedUser.username} bio={loggedUser.bio} accountname = {loggedUser.accountname}/>}
