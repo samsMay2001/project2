@@ -1,11 +1,11 @@
 import './useraccount.css'
-import { Button, Avatar } from '@mui/material'
+import { Button, Avatar, Tooltip } from '@mui/material'
 import GridOnIcon from '@mui/icons-material/GridOn';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SettingsIcon from '@mui/icons-material/Settings';
 import imgs from '../../assets/images.png'
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Post } from '../Post/post';
 import { MultilineInput } from '../MultilineInput/multilineinput';
 import { collection, doc, getDocs, orderBy, query, updateDoc, where } from 'firebase/firestore';
@@ -14,10 +14,13 @@ import { useAppContext } from '../../appContext/appContext';
 import { userFollowing } from '../Feed/userFollowing';
 
 export const UserAccount = ({posts, username, accountname, bio}) => {
+    const myRef = useRef()
     const {loggedUser, setLoggedUser} = useAppContext()
     const [userPosts, setUserPosts] = useState(true)
     const [userSaved, setUserSaved] = useState(false)
     const [userSettings, setUserSettings] = useState(false)
+    const [editAccName, setEditAccName] = useState(false); 
+    const [newName, setNewName] = useState('')
     const [value, setValue] = useState('')
     
     function displayUserPosts(item, index){
@@ -38,8 +41,38 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
             )
         }
     }
+    function handleNewName(e){
+        setNewName(e.target.value)
+    }
     function handleChange(e){
         setValue(e.target.value)
+    }
+    function handleAccName(){
+        setEditAccName(true)
+    }
+    async function editName(){
+        // const q = query(collection(db, 'users'), where('username', '==', username))
+        if (newName.length>0){
+            try {
+                const q = query(collection(db, 'users'), where('username', '==', username))
+                const querySnapShot =  await getDocs(q)
+                const userid = querySnapShot.docs[0].id
+                await updateDoc(doc(db, 'users', userid), {
+                    accountname : newName
+                })
+                const loggedUserCopy = {...loggedUser}
+                loggedUserCopy.accountname = newName
+                localStorage.setItem('my-key', JSON.stringify(loggedUserCopy))
+                setLoggedUser(loggedUserCopy) 
+                setNewName(""); 
+                setEditAccName(false); 
+            }catch(err){
+                console.log(err); 
+            }
+        }else {
+            console.log('Account name not valid'); 
+            setNewName(""); 
+        }
     }
     async function addBio(){
         try{
@@ -58,6 +91,11 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
             console.log(err)
         }
     }
+    useEffect(()=>{
+        if (editAccName && myRef.current){
+            myRef.current.focus();
+        }
+    }, [editAccName])
     return (
         <div>
             <div className="user-acc-header-section">
@@ -65,7 +103,15 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
                     <Avatar className='user-acc-pro-img' src={imgs}/>
                 </div>
                 <div className="user-acc-info">
-                    <h2>{accountname}</h2>
+                    {!editAccName && 
+                    <Tooltip title="Click to Edit" placement='right-end'>
+                        <h2 onClick={handleAccName}>{accountname}</h2>
+                    </Tooltip>
+                    }
+                    {
+                        editAccName && <div onClick={editName} className='done-edit-btn'>Done</div>
+                    }
+                    {editAccName && <input ref={myRef} value={newName} onChange={handleNewName} type='text' placeholder='Add a Name...'/>}
                     {bio && <div className="user-acc-bio">{bio}</div>}
                     {!bio && <MultilineInput textAlign="center" placeholder={"Add a Bio..."} onChange={handleChange} value={value}/>}
                 </div>
