@@ -7,6 +7,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import { UserAccount } from '../UserAccount/useraccount'
 import { userFollowing } from './userFollowing'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../../firebase'
 export const Feed = () => {
     const {posts, loggedUser, userTab,setUserTab, homeTab, setHomeTab} = useAppContext()
     // console.log(loggedUser)
@@ -25,6 +27,7 @@ export const Feed = () => {
             return false
         }
     }
+   
     return (
         
             <div className="feed">
@@ -45,7 +48,6 @@ export const Feed = () => {
                         showDel = {showDeleteBtn(item)} 
                         key={index} 
                         postIndex={index} 
-                        displayName={item.displayName} 
                         text={item.text} 
                         username={item.username} 
                         verified={item.verified} 

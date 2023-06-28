@@ -22,6 +22,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
     const [editAccName, setEditAccName] = useState(false); 
     const [newName, setNewName] = useState('')
     const [value, setValue] = useState('')
+    const [accountname1, setAccountName1] = useState(null)
     
     function displayUserPosts(item, index){
         if (item.username.trim() === username ){
@@ -31,7 +32,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
                 following={userFollowing(item, loggedUser)}
                 key={index} 
                 postIndex={index} 
-                displayName={item.displayName} 
+                accountname={loggedUser.accountname} 
                 text={item.text} 
                 username={item.username} 
                 verified={item.verified} 
@@ -96,6 +97,9 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
             myRef.current.focus();
         }
     }, [editAccName])
+    useEffect(()=>{
+        setAccountName1(loggedUser.accountname)
+    }, [loggedUser])
     return (
         <div>
             <div className="user-acc-header-section">

@@ -15,9 +15,10 @@ import { useAppContext } from '../../appContext/appContext'
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { db } from '../../firebase'
 
-export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
+export const Post = ({accountname, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
     const {setHidden, loggedUser, setLoggedUser} = useAppContext()
     const [showComments, setShowComments] = useState(true)
+    const [displayName, setDisplayName] = useState(null)
     const style = {zIndex}
     function handlePostClick(e){
         setHidden(true)
@@ -69,16 +70,34 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
             console.log('updated the followers array')
         }
     }
+    async function getDsisplayName(){
+        try{
+            const q = query(collection(db,'users'), where('username', '==', username))
+            const querySnapShot = await getDocs(q); 
+            const user = querySnapShot.docs[0].data()
+            if (user){
+                setDisplayName(user.accountname); 
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+    useEffect(()=>{
+        getDsisplayName()
+    }, [])
     return (
         <div className='post' onClick={handlePostClick} >
-            <div className="post-avatar">
+            {displayName && <div className="post-avatar">
                 <Avatar src={img1}/>
-            </div>
-            <div className="post-body">
+            </div>}
+            {displayName && <div className="post-body">
                 <div className="post-header">
                     <div className="post-headerText">
                         <h3>
-                            {displayName}{" "}
+                            
+                            {!accountname && displayName}{" "}
+                            {accountname && accountname}{" "}
                             <span className='post-headerSpecial'>
                                 {verified &&<VerifiedUserIcon className='post-badge'/>} @{username}
                             </span>
@@ -104,7 +123,7 @@ export const Post = ({displayName, username, verified, text, imgSrc, videoSrc, p
                     <CommentSection commentID={postID}/>
                 </div>}
                 <PostMenu showDel={showDel} postIndex = {postIndex} />
-            </div>
+            </div>}
         </div>
     )
 }
