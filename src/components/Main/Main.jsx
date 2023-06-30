@@ -13,7 +13,7 @@ export const Main = () => {
     }
     return (
         <div className="app" onClick={handleClick}>
-            <AuthPrompt/>
+            {/* <AuthPrompt/> */}
             <SideBar/>
             <Feed />
             <Widgets/>

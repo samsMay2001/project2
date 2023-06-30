@@ -1,0 +1,11 @@
+.topic {
+    border: 1px dashed grey;
+    padding: 5px;
+    padding-left: var(--side-padding);
+    padding-right: var(--side-padding);
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    /* border-radius: 10px; */
+    cursor: pointer;
+}

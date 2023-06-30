@@ -14,6 +14,9 @@ import { Button } from '@mui/material';
 import {signOut} from 'firebase/auth'
 import { auth } from '../../firebase';
 import { useAppContext } from '../../appContext/appContext';
+import { AuthPrompt } from '../AuthPromt/authPrompt';
+import { PostSuggestion, PostSuggestions } from '../PostSuggestions/postSuggestions';
+import { Topics } from '../Topics/topics';
 
 export const SideBar = () => {
     const {setUserTab, setHomeTab, setLoggedUser, setInputVal, setUserLoggedIn, userLoggedIn} = useAppContext()
@@ -32,7 +35,7 @@ export const SideBar = () => {
     }
     return (
         <div className='sidebar'>
-            <TwitterIcon className='sidebar-twitterIcon'/>
+            {/* <TwitterIcon className='sidebar-twitterIcon'/>
             <SidebarOption active={true} Icon={HomeIcon} text={'Home'}/>
             <SidebarOption Icon={SearchIcon} text={'Explore'}/>
             <SidebarOption Icon={NotificationsNone} text={'Notifications'}/>
@@ -43,7 +46,13 @@ export const SideBar = () => {
             <SidebarOption Icon={MoreHorizIcon} text={'More'}/>
             { userLoggedIn &&
                 <Button onClick={handleSignOut} variant='outlined' className='sidebar-tweet' fullWidth>Sign Out</Button>
-            }
+            } */}
+            <div className='sidebar-wrapper'>
+                <AuthPrompt/>
+                <PostSuggestions/>
+                <Topics/>
+            </div>
+
         </div>
     )
 }

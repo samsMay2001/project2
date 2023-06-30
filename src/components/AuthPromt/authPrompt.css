@@ -1,13 +1,57 @@
 .auth-prompt, .u12ccc1{
-    position: absolute;
-    width: 300px;
-    height: 200px;
     border: 1px dashed grey;
-    top: 20px;
-    right: 20px;
     background-color: white;
     border-radius: 10px;
+    height: 200px;
 }
 .u12ccc1{
     display: none;
+}
+.welcome{
+    /* border: 1px dashed grey; */
+    width: 270px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+    margin: auto;
+    margin-top: 25px;
+}
+.authorize{
+    /* border: 1px dashed grey; */
+    display: flex;
+    --action-btns-width: 100%; 
+    --action-btns-padding: 10px;
+    margin-top: 20px;
+}
+.signin, .signup{
+    width: var(--action-btns-width);
+    padding-left: var(--action-btns-padding); 
+    padding-right: var(--action-btns-padding); 
+}
+.signup{
+    border-left:1px solid grey;
+}
+.signup-btn, .login-btn{
+    border: 1px dashed grey;
+    height:50px;
+    display: flex;
+    align-items: center;
+    padding-left: 11px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.signup-btn > span {
+    border: 1px dashed grey;
+    padding:15px; 
+    border-radius: 30px;
+    margin-right: 7px;
+
+}
+
+.login-btn > span {
+    border: 1px dashed grey;
+    padding:15px; 
+    border-radius: 30px;
+    margin-right: 10px;
 }

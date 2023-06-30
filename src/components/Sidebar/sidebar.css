@@ -3,10 +3,14 @@
     border-right: 1px solid var(--twitter-background);
     flex: var(--sidebar-width);
     margin-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px; 
+    padding-left: 0px; 
+    position: relative;
+    --side-padding : 20px; 
 }
-
+.sidebar-wrapper{
+    padding-left: var(--side-padding);
+    padding-right: var(--side-padding);
+}
 .sidebar-tweet{
     background-color: var(--twitter-color) !important;
     border: none !important;
