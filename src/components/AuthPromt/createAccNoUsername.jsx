@@ -27,11 +27,12 @@ export async function createAccNoUsername(currentUser, setLoggedUser, username, 
         const user = querySnapShot.docs[0].data()
         if (user.username.length > 0){
             const users = JSON.parse(localStorage.getItem('my-key'))
-            // updates the bio on the loggedUser
+            // updates the bio, followers, following, and accountname on the loggedUser
             if(users == null){
                 postObj.bio = user.bio
                 postObj.followers = user.followers
                 postObj.following = user.following
+                postObj.accountname = user.accountname
                 setLoggedUser(postObj); 
             }
         return user.username.trim()

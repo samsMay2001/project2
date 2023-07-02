@@ -1,0 +1,60 @@
+.user-summary{
+    border: 1px dashed grey;
+    height: 350px;
+    border-radius: 10px;
+    --user-summary-margins : 10px;
+    margin-left: var(--user-summary-margins);
+    margin-right: var(--user-summary-margins);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+.summary-background{
+    /* border-bottom: 1px dashed grey; */
+    height: 90px; 
+}
+.summary-profile-img{
+    border: 1px dashed grey;
+    background-color: white;
+    height: 150px;
+    width: 100px;
+    margin: auto;
+    margin-top: -50px;
+    border-radius: 10px;
+}
+.user-summary > h2 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+.engagement{
+    /* border: 1px dashed grey; */
+    --engagement-padding : 10px; 
+    padding-top: var(--engagement-padding);
+    padding-bottom: var(--engagement-padding);
+    display: flex;
+    justify-content: center;
+}
+.engagement > div{
+    /* border-right:1px solid grey ; */
+    width: 100px;
+    text-align: center;
+}
+.engagement-box:last-child{
+    border-right: 0px;
+}
+.logout-btn{
+    /* border: 1px solid grey; */
+    background-color: var(--twitter-color);
+    color: white;
+    width: 90px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    /* margin-left: 30px; */
+    margin-top: 5px;
+    font-weight: 700;
+    border-radius: 5px;
+    font-size: 14px;
+}

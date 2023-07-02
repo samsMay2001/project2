@@ -28,11 +28,22 @@
     cursor: pointer;
     border-radius: 40px;
     margin-right: 10px;
-    width: 50px;
+    /* width: 120px; */
     height: 50px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+.home {
+    padding-left: 12px;
+}
+.useraccount > h4 {
+    margin-left: 5px;
+}
+.home > h4 {
+    margin-left: 5px;
 }
 .user-acc-icon, .home-icon{
     width: 30px !important;

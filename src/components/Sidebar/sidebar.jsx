@@ -17,9 +17,10 @@ import { useAppContext } from '../../appContext/appContext';
 import { AuthPrompt } from '../AuthPromt/authPrompt';
 import { PostSuggestion, PostSuggestions } from '../PostSuggestions/postSuggestions';
 import { Topics } from '../Topics/topics';
+import { UserSummary } from '../UserSummary/usersummary';
 
 export const SideBar = () => {
-    const {setUserTab, setHomeTab, setLoggedUser, setInputVal, setUserLoggedIn, userLoggedIn} = useAppContext()
+    const {setUserTab, setHomeTab, setLoggedUser, setInputVal, setUserLoggedIn, userLoggedIn, homeTab} = useAppContext()
     async function handleSignOut(){
         try {
             await signOut(auth); 
@@ -48,6 +49,7 @@ export const SideBar = () => {
                 <Button onClick={handleSignOut} variant='outlined' className='sidebar-tweet' fullWidth>Sign Out</Button>
             } */}
             <div className='sidebar-wrapper'>
+                {homeTab && <UserSummary/>}
                 <AuthPrompt/>
                 <PostSuggestions/>
                 <Topics/>

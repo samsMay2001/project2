@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
 import { Post } from '../Post/post'
 import { TweetBox } from '../TweetBox/tweetbox'
 import './feed.css'
 import { useAppContext } from '../../appContext/appContext'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import PublicIcon from '@mui/icons-material/Public';
+import WebIcon from '@mui/icons-material/Web';
 import { UserAccount } from '../UserAccount/useraccount'
 import { userFollowing } from './userFollowing'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { db } from '../../firebase'
+import FeedIcon from '@mui/icons-material/Feed';
 export const Feed = () => {
     const {posts, loggedUser, userTab,setUserTab, homeTab, setHomeTab} = useAppContext()
     // console.log(loggedUser)
@@ -27,17 +27,24 @@ export const Feed = () => {
             return false
         }
     }
-   
+    function handleExplore(){}
     return (
         
             <div className="feed">
                 <div className="feed-header">
-                    <div onClick={handleHomeClick} className={`home ${homeTab && 'feed-header-active'}`}>
-                        <HomeIcon className='home-icon' />
-                    </div>
                     {(loggedUser.username) && <div onClick={handleUserClick} className={`useraccount ${userTab && 'feed-header-active'}`}>
                         <AccountCircleIcon className='user-acc-icon'  />
+                        <h4>Profile</h4>
                     </div>}
+                    <div onClick={handleHomeClick} className={`home ${homeTab && 'feed-header-active'}`}>
+                        <FeedIcon className='home-icon' />
+                        <h4>Feed</h4>
+                    </div>
+                    <div onClick={handleExplore} className={`home`}>
+                        <PublicIcon className='home-icon' />
+                        <h4>Explore</h4>
+                    </div>
+                    
                 </div>
                 {(homeTab && loggedUser.username) && <TweetBox/>}
                 {(posts && homeTab) && posts.map((item, index)=> (
