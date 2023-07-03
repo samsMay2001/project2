@@ -1,5 +1,7 @@
 .topic {
-    border: 1px dashed grey;
+    /* border: 1px solid #dddddd; */
+    background-color: var(--icon-background);
+    color: var(--icon-color);
     padding: 5px;
     padding-left: var(--side-padding);
     padding-right: var(--side-padding);

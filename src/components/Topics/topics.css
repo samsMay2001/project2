@@ -1,9 +1,12 @@
 .topics {
-    border: 1px dashed grey;
+    border: 1px solid #dddddd;
+    /* background-color:#f5f8fa ; */
+    background-color:white ;
     height: 200px;
     margin-top: 30px;
     user-select: none;
     border-radius: 10px;
+    padding-top: 10px;
 }
 .topic-list{
     padding: 10px;

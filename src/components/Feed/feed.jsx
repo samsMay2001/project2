@@ -32,10 +32,6 @@ export const Feed = () => {
         
             <div className="feed">
                 <div className="feed-header">
-                    {(loggedUser.username) && <div onClick={handleUserClick} className={`useraccount ${userTab && 'feed-header-active'}`}>
-                        <AccountCircleIcon className='user-acc-icon'  />
-                        <h4>Profile</h4>
-                    </div>}
                     <div onClick={handleHomeClick} className={`home ${homeTab && 'feed-header-active'}`}>
                         <FeedIcon className='home-icon' />
                         <h4>Feed</h4>
@@ -44,6 +40,10 @@ export const Feed = () => {
                         <PublicIcon className='home-icon' />
                         <h4>Explore</h4>
                     </div>
+                    {(loggedUser.username) && <div onClick={handleUserClick} className={`useraccount ${userTab && 'feed-header-active'}`}>
+                        <AccountCircleIcon className='user-acc-icon'  />
+                        <h4>Profile</h4>
+                    </div>}
                     
                 </div>
                 {(homeTab && loggedUser.username) && <TweetBox/>}

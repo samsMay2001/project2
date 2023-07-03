@@ -1,60 +1,85 @@
 .user-summary{
-    border: 1px dashed grey;
-    height: 350px;
+    /* border: 1px dashed grey; */
+    border: 1px solid #dddddd;
+    padding: 12px;
     border-radius: 10px;
-    --user-summary-margins : 10px;
+    --user-summary-margins : 0px;
     margin-left: var(--user-summary-margins);
     margin-right: var(--user-summary-margins);
     position: relative;
     overflow: hidden;
+    display: flex;
     text-align: center;
+    /* padding-left: 12px; */
+    /* background-color: var(--icon-background); */
 }
 .summary-background{
     /* border-bottom: 1px dashed grey; */
     height: 90px; 
 }
 .summary-profile-img{
-    border: 1px dashed grey;
+    /* border: 1px solid #dddddd; */
     background-color: white;
-    height: 150px;
-    width: 100px;
-    margin: auto;
-    margin-top: -50px;
-    border-radius: 10px;
-}
-.user-summary > h2 {
-    margin-top: 10px;
-    font-size: 18px;
-}
-.engagement{
-    /* border: 1px dashed grey; */
-    --engagement-padding : 10px; 
-    padding-top: var(--engagement-padding);
-    padding-bottom: var(--engagement-padding);
+    height: 120px;
+    width: 120px;
+    border-radius: 5px;
+    overflow: hidden;
     display: flex;
     justify-content: center;
 }
-.engagement > div{
-    /* border-right:1px solid grey ; */
-    width: 100px;
-    text-align: center;
+.summary-profile-img > img{
+    /* border: 1px dashed red; */
+    width: auto;
+    height: auto;
+    /* height: 120%; */
+}
+.engagement{
+    /* border: 1px dashed grey; */
+    width: 150px;
+    margin-left: 12px;
+    /* height: 120px; */
+    --engagement-padding : 0px; 
+    padding-top: var(--engagement-padding);
+    padding-bottom: var(--engagement-padding);
+    text-align:left;
+    
+}
+.engagement > h2{
+    margin-top: 5px;
+    font-size: 18px;
+}
+.engagement-box{
+    display: flex;
+    --engagement-box-padding: 0px;
 }
 .engagement-box:last-child{
     border-right: 0px;
 }
+.engagement-box > h5 {
+    /* border:1px dashed grey; */
+    width: 40px;
+    padding-top: var(--engagement-box-padding);
+    padding-bottom: var(--engagement-box-padding);
+}
+.engagement-box > h4 {
+    padding-top: var(--engagement-box-padding);
+    padding-bottom: var(--engagement-box-padding);
+    padding-left: 2px;
+    font-size: 13px;
+}
 .logout-btn{
     /* border: 1px solid grey; */
-    background-color: var(--twitter-color);
-    color: white;
+    background-color: var(--icon-background);
+    color: var(--icon-color);
     width: 90px;
-    height: 40px;
+    height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
     /* margin-left: 30px; */
-    margin-top: 5px;
+    margin-top: 7px;
     font-weight: 700;
     border-radius: 5px;
     font-size: 14px;
+    cursor: pointer;
 }
