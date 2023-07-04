@@ -21,7 +21,7 @@ export const AppContext = ({children})=> {
         following: []
     });  
     const [userTab, setUserTab] = useState(false)
-    const [homeTab, setHomeTab] = useState(true)
+    const [homeTab, setHomeTab] = useState(false)
     const [inputVal, setInputVal] = useState("")
     const [hidden, setHidden] = useState(true)
     const [appFocus, setAppFocus] = useState(true); 
@@ -48,7 +48,7 @@ export const AppContext = ({children})=> {
             let loggedUserCopy = {...user}
             setLoggedUser(loggedUserCopy); 
             setUserLoggedIn(true)
-            setUserTab(true)
+            setUserTab(false)
             setHomeTab(false)
         }
     }
