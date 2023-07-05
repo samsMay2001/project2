@@ -15,7 +15,7 @@ import { userFollowing } from '../Feed/userFollowing';
 
 export const UserAccount = ({posts, username, accountname, bio}) => {
     const myRef = useRef()
-    const {loggedUser, setLoggedUser} = useAppContext()
+    const {loggedUser, setLoggedUser, setHomeTab} = useAppContext()
     const [userPosts, setUserPosts] = useState(true)
     const [userSaved, setUserSaved] = useState(false)
     const [userSettings, setUserSettings] = useState(false)
@@ -99,6 +99,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
     }, [editAccName])
     useEffect(()=>{
         setAccountName1(loggedUser.accountname)
+        setHomeTab(false); 
     }, [loggedUser])
     return (
         <div>

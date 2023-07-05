@@ -21,35 +21,10 @@ import { UserSummary } from '../UserSummary/usersummary';
 
 export const SideBar = () => {
     const {setUserTab, setHomeTab, setLoggedUser, setInputVal, setUserLoggedIn, userLoggedIn, homeTab} = useAppContext()
-    async function handleSignOut(){
-        try {
-            await signOut(auth); 
-            setUserTab(false)
-            setHomeTab(true)
-            setLoggedUser({}); 
-            setUserLoggedIn(false); 
-            setInputVal("")
-            localStorage.clear();
-        } catch(err){
-            console.error(err)
-        }
-    }
     return (
         <div className='sidebar'>
-            {/* <TwitterIcon className='sidebar-twitterIcon'/>
-            <SidebarOption active={true} Icon={HomeIcon} text={'Home'}/>
-            <SidebarOption Icon={SearchIcon} text={'Explore'}/>
-            <SidebarOption Icon={NotificationsNone} text={'Notifications'}/>
-            <SidebarOption Icon={MailOutlineIcon} text={'Messages'}/>
-            <SidebarOption Icon={BookmarkBorderIcon} text={'Saved'}/>
-            <SidebarOption Icon={ListAltIcon} text={'Lists'}/>
-            <SidebarOption Icon={PermIdentityIcon} text={'Profile'}/>
-            <SidebarOption Icon={MoreHorizIcon} text={'More'}/>
-            { userLoggedIn &&
-                <Button onClick={handleSignOut} variant='outlined' className='sidebar-tweet' fullWidth>Sign Out</Button>
-            } */}
             <div className='sidebar-wrapper'>
-                {homeTab && <UserSummary/>}
+                {(homeTab&&userLoggedIn) && <UserSummary/>}
                 <AuthPrompt/>
                 <PostSuggestions/>
                 <Topics/>

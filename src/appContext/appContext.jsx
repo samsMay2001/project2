@@ -42,14 +42,12 @@ export const AppContext = ({children})=> {
         setPosts(postArray)
     }
     function isUserLoggedIn(){
+        // localStorage.clear()
         const user = JSON.parse(localStorage.getItem('my-key'))
         if (user){
             setUserLoggedIn(true);
             let loggedUserCopy = {...user}
             setLoggedUser(loggedUserCopy); 
-            setUserLoggedIn(true)
-            setUserTab(false)
-            setHomeTab(false)
         }
     }
     useEffect(()=> {
@@ -76,9 +74,7 @@ export const AppContext = ({children})=> {
             userLoggedIn, 
             setUserLoggedIn, 
             loggedUser, 
-            setLoggedUser,
-            userTab, 
-            setUserTab, 
+            setLoggedUser, 
             homeTab, 
             setHomeTab, 
             inputVal, 

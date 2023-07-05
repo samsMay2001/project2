@@ -15,8 +15,8 @@ import { useAppContext } from '../../appContext/appContext'
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { db } from '../../firebase'
 
-export const Post = ({accountname, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
-    const {setHidden, loggedUser, setLoggedUser} = useAppContext()
+export const Post = ({feed, accountname, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
+    const {setHidden, loggedUser, setLoggedUser, setHomeTab} = useAppContext()
     const [showComments, setShowComments] = useState(true)
     const [displayName, setDisplayName] = useState(null)
     const style = {zIndex}
@@ -85,6 +85,9 @@ export const Post = ({accountname, username, verified, text, imgSrc, videoSrc, p
     }
     useEffect(()=>{
         getDsisplayName()
+        if (feed){
+            setHomeTab(true); 
+        }
     }, [])
     return (
         <div className='post' onClick={handlePostClick} >

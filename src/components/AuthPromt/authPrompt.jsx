@@ -9,6 +9,7 @@ import { createAccNoUsername } from './createAccNoUsername'
 import { validateUserName } from './validateUserName'
 import { modifyName } from './modifyName'
 import { setLocalStorage } from './setLocalStorage'
+import { useNavigate } from 'react-router-dom'
 
 
 export const AuthPrompt = () => {
@@ -16,6 +17,7 @@ export const AuthPrompt = () => {
     const [user, setUser] = useState(null); 
     const [username, setUsername] = useState('')
     const [userAlreadyExist, setUserAlreadyExist] = useState(null)
+    const navigate = useNavigate()
     const handleGoogleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         try{
@@ -38,7 +40,7 @@ export const AuthPrompt = () => {
                 await updateDoc(userRef, {
                     username: newUsername
                 })
-                setLocalStorage(newUsername, setLoggedUser, setUserLoggedIn, setUserTab, setHomeTab)
+                setLocalStorage(navigate,newUsername, setLoggedUser, setUserLoggedIn, setUserTab, setHomeTab)
             }catch(err){
                 console.log(err)
             }
@@ -51,7 +53,7 @@ export const AuthPrompt = () => {
     async function createAccWrapper(currentUser){
         const usernameExists = await createAccNoUsername(currentUser, setLoggedUser, username, setUserAlreadyExist);
         if (usernameExists){
-            setLocalStorage(usernameExists, setLoggedUser, setUserLoggedIn, setUserTab, setHomeTab); 
+            setLocalStorage(navigate, usernameExists, setLoggedUser, setUserLoggedIn, setHomeTab); 
         }
     }
     useEffect(()=>{

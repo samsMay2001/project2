@@ -2,8 +2,13 @@ import './usersummary.css'
 // import imgs from '../../assets/527aa367a7c51fe24244d313028404fd.jpg'
 // import imgs from '../../assets/profile pic.jpg'
 import imgs from '../../assets/images.png'
+import { handleSignOut } from '../Sidebar/handleSignout'
+import { useAppContext } from '../../appContext/appContext'
+import {useNavigate} from 'react-router-dom'
 
 export const UserSummary = () => {
+    const {setHomeTab, setLoggedUser, setUserLoggedIn, setInputVal} = useAppContext()
+    const navigate = useNavigate()
     return (
         <div className='user-summary'>
             {/* <div className='summary-background'></div> */}
@@ -24,7 +29,7 @@ export const UserSummary = () => {
                     <h5>10K</h5>
                     <h4>Followers</h4>
                 </div>
-            <div className="logout-btn">Log Out</div>
+            <div className="logout-btn" onClick={()=>{handleSignOut(setHomeTab, setLoggedUser, setUserLoggedIn, setInputVal); navigate('/explore')}}>Log Out</div>
             </div>
         </div>
     )

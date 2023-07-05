@@ -1,4 +1,4 @@
-export function setLocalStorage(username, setLoggedUser, setUserLoggedIn, setUserTab, setHomeTab){
+export function setLocalStorage(navigate,username, setLoggedUser, setUserLoggedIn, setHomeTab){
     const appKey = "my-key"; 
     setLoggedUser((oldVal)=> {
         const loggedUserCopy = {...oldVal}
@@ -7,6 +7,5 @@ export function setLocalStorage(username, setLoggedUser, setUserLoggedIn, setUse
         return loggedUserCopy
     })
     setUserLoggedIn(true)
-    setUserTab(true); 
-    setHomeTab(false)
+    navigate('/bmwm4'); 
 }
