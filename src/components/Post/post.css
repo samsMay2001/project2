@@ -60,6 +60,9 @@
     --padding-time-stamp : 10px; 
     padding-top: var(--padding-time-stamp);
     padding-bottom: var(--padding-time-stamp);
+    padding-left: 12px; 
+    font-weight: 500;
+    color: #4b5960;
 }
 .post-footer {
     /* border: 1px dashed grey; */
@@ -71,10 +74,9 @@
 
 .post-footer-icon{
     display: flex;
-    margin-right: px;
     cursor: pointer;
     --icon-border-color : #4b5960; 
-    --pdding-top-post-footer: 5px; 
+    --pdding-top-post-footer: 1px; 
     --padding-side-post-footer: 7px;  
     border-radius: 10px;
     padding-top: var(--pdding-top-post-footer);
@@ -83,7 +85,7 @@
     padding-right: var(--padding-side-post-footer);
 }
 .post-footer-icon > span {
-    margin-right: 3px;
+    margin-right: 1px;
 }
 .post-footer-icon > h5 {
     margin-top : 3px;

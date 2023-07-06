@@ -6,7 +6,7 @@ import { collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/fi
 import { db } from '../../firebase';
 import { useAppContext } from '../../appContext/appContext';
 
-export const Comment = ({ username, commentTxt, handleMainReply, zIndex, commentIndex}) => {
+export const Comment = ({timestamp, username, commentTxt, handleMainReply, zIndex, commentIndex}) => {
     const {comments, setComments, loggedUser, appFocus, setAppFocus} = useAppContext()
     const [showEdit, setShowEdit] = useState(false)
     const [activeMenu, setActiveMenu] = useState(false)
@@ -16,6 +16,32 @@ export const Comment = ({ username, commentTxt, handleMainReply, zIndex, comment
             setShowEdit(true)
         }else {
             setShowEdit(false)
+        }
+    }
+    function getTimeStamp(){
+        const now = Date.now();
+        const elapsedTime = Math.abs(now - timestamp) / 1000; // Convert to seconds
+      
+        if (elapsedTime >= 604800) {
+            // More than a week
+            const weeks = Math.floor(elapsedTime / 604800);
+            return `${weeks}w`;
+        } else if (elapsedTime >= 86400) {
+          // More than a day
+          const days = Math.floor(elapsedTime / 86400);
+          return `${days}d${days > 1 ? 's' : ''}`;
+        } else if (elapsedTime >= 3600) {
+          // More than an hour
+          const hours = Math.floor(elapsedTime / 3600);
+          return `${hours}hr${hours > 1 ? 's' : ''}`;
+        } else if (elapsedTime >= 60) {
+          // More than a minute
+          const minutes = Math.floor(elapsedTime / 60);
+          return `${minutes}mn`;
+        } else {
+          // Less than a minute
+          const seconds = Math.floor(elapsedTime);
+          return `${seconds}s`;
         }
     }
     function handleCommentMenu(e){
@@ -59,7 +85,7 @@ export const Comment = ({ username, commentTxt, handleMainReply, zIndex, comment
             </div>
             <div className="comment-text-content">
                 <div className="comment-user">
-                    @{username}{" 2m"}
+                    @{username}{" "}{getTimeStamp()}
                 </div>
             <div className="comment-text">
                 {commentTxt}

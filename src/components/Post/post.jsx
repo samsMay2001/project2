@@ -18,9 +18,8 @@ import { useAppContext } from '../../appContext/appContext'
 import { collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { db } from '../../firebase'
 
-export const Post = ({likes,feed, accountname, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
+export const Post = ({timestamp, likes,feed, accountname, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
     const {setHidden, loggedUser, setLoggedUser, setHomeTab, posts, setPosts, setAppFocus} = useAppContext()
-    const [commentFocus, setCommentFocus] = useState(false); 
     const [showComments, setShowComments] = useState(true)
     const [displayName, setDisplayName] = useState(null)
     const [like, setLike] = useState (false)
@@ -28,6 +27,19 @@ export const Post = ({likes,feed, accountname, username, verified, text, imgSrc,
     const commentRef = useRef(); 
     function handlePostClick(e){
         setHidden(true)
+    }
+    function getTimeStamp(){
+        const date = new Date(timestamp)
+        const options = { month: 'long', year: 'numeric', day: 'numeric' };
+        const formattedDate = date.toLocaleDateString('default', options);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12;
+        const formattedTime = `${formattedHours}:${minutes
+          .toString()
+          .padStart(2, '0')} ${period}`;
+        return `${formattedTime}. ${formattedDate}`
     }
     async function follow(){
         // user who's being followed
@@ -170,7 +182,7 @@ export const Post = ({likes,feed, accountname, username, verified, text, imgSrc,
                 {imgSrc && <img src={imgSrc} alt="profile pic" />}
                 {videoSrc && <video src={videoSrc} controls/>}
                 <div className="post-time-stamp">
-                    {'2:18 AM. Apr 30, 2017'}
+                    {getTimeStamp()}
                 </div>
                 <div className="post-footer">
                     <div className="post-footer-icon" onClick={handleLike}>

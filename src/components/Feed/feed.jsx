@@ -65,6 +65,7 @@ export const Feed = () => {
                             {(posts) && posts.map((item, index)=> (
                                 <div>
                                     <Post 
+                                    timestamp={item.timeStamp}
                                     likes={item.likes}
                                     zIndex={posts.length-index} 
                                     following={userFollowing(item, loggedUser)} 

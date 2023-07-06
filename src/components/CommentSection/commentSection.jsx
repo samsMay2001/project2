@@ -32,6 +32,7 @@ export const CommentSection = ({commentID, refference}) => {
         }
         if (comment !== "" && loggedUser.username){
             try{
+                const docRef = await addDoc(collection(db, "comments"), postObj)
                 let commentsCopy = [...comments, postObj]
                 setComments(commentsCopy); 
             }catch(error){
@@ -57,7 +58,15 @@ export const CommentSection = ({commentID, refference}) => {
     
         if (item.postID.trim() === commentID){
                 return (
-                    <Comment key={index}  commentIndex={index} zIndex={comments.length-index} username={item.user} commentTxt={item.text} handleMainReply={handleMainReply}/>
+                    <Comment 
+                    key={index}  
+                    commentIndex={index} 
+                    zIndex={comments.length-index} 
+                    username={item.user} 
+                    commentTxt={item.text} 
+                    handleMainReply={handleMainReply}
+                    timestamp = {item.timeStamp}
+                    />
                 )
         }
     }

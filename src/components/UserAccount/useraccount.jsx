@@ -28,6 +28,7 @@ export const UserAccount = ({posts, username, accountname, bio}) => {
         if (item.username.trim() === username ){
             return (
                 <Post 
+                timestamp={item.timeStamp}
                 likes={item.likes}
                 showDel={true} 
                 following={userFollowing(item, loggedUser)}
