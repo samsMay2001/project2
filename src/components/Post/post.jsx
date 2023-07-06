@@ -2,24 +2,30 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
 import RepeatIcon from '@mui/icons-material/Repeat'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
+import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import PublishIcon from '@mui/icons-material/Publish'
 import { Avatar } from '@mui/material'
 import './post.css'
 import { getImg } from '../../assets/env'
 import img1 from '../../assets/images.png'
 import img2 from '../../assets/profile pic.jpg'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CommentSection } from '../CommentSection/commentSection'
 import { PostMenu } from '../PostMenu/postmenu'
 import { useAppContext } from '../../appContext/appContext'
-import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { db } from '../../firebase'
 
-export const Post = ({feed, accountname, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
-    const {setHidden, loggedUser, setLoggedUser, setHomeTab} = useAppContext()
+export const Post = ({likes,feed, accountname, username, verified, text, imgSrc, videoSrc, postID, postIndex, showDel, following, zIndex}) => {
+    const {setHidden, loggedUser, setLoggedUser, setHomeTab, posts, setPosts, setAppFocus} = useAppContext()
+    const [commentFocus, setCommentFocus] = useState(false); 
     const [showComments, setShowComments] = useState(true)
     const [displayName, setDisplayName] = useState(null)
+    const [like, setLike] = useState (false)
     const style = {zIndex}
+    const commentRef = useRef(); 
     function handlePostClick(e){
         setHidden(true)
     }
@@ -83,6 +89,53 @@ export const Post = ({feed, accountname, username, verified, text, imgSrc, video
             console.log(err)
         }
     }
+    async function handleLike(){
+        // console.log(postID); 
+        // const docRef = await doc(db, 'posts', postID.trim()) 
+        const q = doc(collection(db, 'posts'), postID)
+        const querySnapShot = await getDoc(q)
+        let postCopy; 
+        if (querySnapShot.exists()){
+            postCopy = querySnapShot.data();
+        }
+        const postsCopy = [...posts]; 
+        setLike((oldVal)=> {
+            if (!oldVal){ // adding username to likes array
+                postsCopy[postIndex].likes.push(loggedUser.username)
+                postCopy.likes.push(loggedUser.username); 
+                updateDoc(q, {
+                    likes : postCopy.likes
+                }).then(()=> console.log('likes updated'))
+                .catch(err => console.log(err)); 
+            }else { // removing username to likes array
+                const newLikes = postsCopy[postIndex].likes.filter(item => item !== loggedUser.username);  
+                postsCopy[postIndex].likes = newLikes; 
+                const newFirebaseLikes = postCopy.likes.filter(item => item !== loggedUser.username); 
+                // console.log(newFirebaseLikes); 
+                updateDoc(q, {
+                    likes : newFirebaseLikes
+                }).then(()=> console.log('likes updated'))
+                .catch(err => console.log(err))
+            } 
+            setPosts(postsCopy); 
+
+            return !oldVal
+        }); 
+    }
+    function displayLikes(){
+        // console.log(likes); 
+        if (likes.length > 0){
+            if (likes.length > 999) {
+                return (likes.length / 1000).toFixed(1) + 'k';
+              }
+              return likes.length.toString();
+        }else {
+            return ''
+        }
+    }
+    function handleReply(){
+        commentRef.current.focus()
+    }
     useEffect(()=>{
         getDsisplayName()
         if (feed){
@@ -116,14 +169,26 @@ export const Post = ({feed, accountname, username, verified, text, imgSrc, video
                 </div>
                 {imgSrc && <img src={imgSrc} alt="profile pic" />}
                 {videoSrc && <video src={videoSrc} controls/>}
+                <div className="post-time-stamp">
+                    {'2:18 AM. Apr 30, 2017'}
+                </div>
                 <div className="post-footer">
-                    <ChatBubbleOutlineIcon fontSize='small'/>
-                    <RepeatIcon fontSize='small'/>
-                    <FavoriteBorderIcon fontSize='small'/>
-                    <PublishIcon fontSize='small'/>
+                    <div className="post-footer-icon" onClick={handleLike}>
+                        <span >
+                            {!like && <FavoriteBorderIcon className='ps-fo-ico'/>}
+                            {like && <FavoriteIcon className='ps-fav-icon'/>}
+                        </span>
+                        <h5>{displayLikes()}</h5>
+                    </div>
+                    <div className="post-footer-icon">
+                        <span>
+                            <BubbleChartIcon className='ps-fo-ico2' sx={{fontSize:25}}/>
+                        </span>
+                        <h5 onClick={handleReply}>{'Reply'}</h5>
+                    </div>
                 </div>
                 {showComments &&<div className="comment-section" >
-                    <CommentSection commentID={postID}/>
+                    <CommentSection commentID={postID} refference={commentRef}/>
                 </div>}
                 <PostMenu showDel={showDel} postIndex = {postIndex} />
             </div>}

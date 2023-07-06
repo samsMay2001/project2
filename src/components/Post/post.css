@@ -37,11 +37,13 @@
     color : var(--twitter-color); 
 }
 .post-body > img {
+    border: 1.5px solid #dddddd;
     border-radius: 20px;
     margin-top: 20px;
     width: 600px;
 }
 .post-body > video {
+    border: 1.5px solid #dddddd;
     border-radius: 20px;
     margin-top: 20px;
     width: 600px;
@@ -52,11 +54,57 @@
     padding-right: 20px;
     /* border: 1px dashed grey; */
 }
-.post-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+.post-time-stamp{
+    /* border-top: 1px solid grey; */
+    border-bottom: 1px solid #dddddd;
+    --padding-time-stamp : 10px; 
+    padding-top: var(--padding-time-stamp);
+    padding-bottom: var(--padding-time-stamp);
 }
+.post-footer {
+    /* border: 1px dashed grey; */
+    padding-left: 5px;
+    /* padding-bottom: 5px;  */
+    display: flex;
+    margin-top: 5px;
+}
+
+.post-footer-icon{
+    display: flex;
+    margin-right: px;
+    cursor: pointer;
+    --icon-border-color : #4b5960; 
+    --pdding-top-post-footer: 5px; 
+    --padding-side-post-footer: 7px;  
+    border-radius: 10px;
+    padding-top: var(--pdding-top-post-footer);
+    padding-bottom: var(--pdding-top-post-footer);
+    padding-left: var(--padding-side-post-footer);
+    padding-right: var(--padding-side-post-footer);
+}
+.post-footer-icon > span {
+    margin-right: 3px;
+}
+.post-footer-icon > h5 {
+    margin-top : 3px;
+    font-size: 16px;
+    color: var(--icon-border-color);
+}
+.post-footer-icon:first-child:hover{
+    background-color:#ffe9f2;
+    transition: 100ms;
+}
+.ps-fo-ico{
+    color: var(--icon-border-color); 
+}
+.ps-fo-ico2{
+    color: var(--twitter-color);
+    --icon-size : 15px; 
+}
+.ps-fav-icon{
+    color: #f51673;
+}
+
 .post-headerDescription{
     /* border: 1px dashed grey; */
     width: 90%;

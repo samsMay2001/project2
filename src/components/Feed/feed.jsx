@@ -17,7 +17,7 @@ import { Widgets } from '@mui/icons-material';
 
 export const Feed = () => {
     const {posts, loggedUser, setHomeTab} = useAppContext()
-    // console.log(loggedUser)
+    // console.log(posts); 
     function handleHomeClick(){
         setHomeTab(true); 
     }
@@ -65,6 +65,7 @@ export const Feed = () => {
                             {(posts) && posts.map((item, index)=> (
                                 <div>
                                     <Post 
+                                    likes={item.likes}
                                     zIndex={posts.length-index} 
                                     following={userFollowing(item, loggedUser)} 
                                     showDel = {showDeleteBtn(item)} 

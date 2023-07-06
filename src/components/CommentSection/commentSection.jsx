@@ -1,23 +1,23 @@
 import { useAppContext } from '../../appContext/appContext'
 import { Avatar, Button, TextareaAutosize } from '@mui/material'
 import './commentSection.css'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {collection, addDoc, getDoc, doc} from 'firebase/firestore'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { db } from '../../firebase'
 import { Comment } from '../Comment/comment'
 // import db from '../../firebase'
 
-export const CommentSection = ({commentID}) => {
-    const {comments, setComments, loggedUser} = useAppContext()
+export const CommentSection = ({commentID, refference}) => {
+    const {comments, setComments, loggedUser, appFocus} = useAppContext()
     const [parentComment, setParentComment] = useState(null)
     const [comment, setComment] = useState('')
-    const ref = useRef()
+    // const ref = useRef()
     function handleChange (event){
         setComment(event.target.value)
     }
     function handleMainReply(){
-        ref.current.focus()
+        refference.current.focus()
     }
     async function postComment(){
         const user = await getUser()
@@ -65,7 +65,7 @@ export const CommentSection = ({commentID}) => {
         <div className='comment-section-content'>
             <div className="comment-input">
                 {/* <input ref={ref} type="text" name="" id="" placeholder='Write a comment' value={comment} onChange={handleChange}/> */}
-                <TextareaAutosize ref={ref} className='comment-box-input' placeholder="write a comment" value={comment} onChange={handleChange}/>
+                <TextareaAutosize ref={refference} className='comment-box-input' placeholder="write a comment" value={comment} onChange={handleChange}/>
                 <Button className='comment-post-btn' onClick={postComment}>Post</Button>
             </div>
             {comments.map((item, index)=> (
