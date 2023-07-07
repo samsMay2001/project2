@@ -40,7 +40,7 @@
     border: 1.5px solid #dddddd;
     border-radius: 20px;
     margin-top: 20px;
-    width: 600px;
+    width: 550px;
 }
 .post-body > video {
     border: 1.5px solid #dddddd;
@@ -109,8 +109,10 @@
 
 .post-headerDescription{
     /* border: 1px dashed grey; */
-    width: 90%;
+    width: 610px;
     white-space: pre-line;
+    padding-top: 5px;
+    font-family: inherit;
 }
 
 

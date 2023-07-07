@@ -153,7 +153,7 @@ export const Post = ({timestamp, likes,feed, accountname, username, verified, te
         if (feed){
             setHomeTab(true); 
         }
-    }, [])
+    }, [posts])
     return (
         <div className='post' onClick={handlePostClick} >
             {displayName && <div className="post-avatar">
@@ -165,6 +165,7 @@ export const Post = ({timestamp, likes,feed, accountname, username, verified, te
                         <h3>
                             
                             {!accountname && displayName}{" "}
+                            {/* {displayName}{" "} */}
                             {accountname && accountname}{" "}
                             <span className='post-headerSpecial'>
                                 {verified &&<VerifiedUserIcon className='post-badge'/>} @{username}

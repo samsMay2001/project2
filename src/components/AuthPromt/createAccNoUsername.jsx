@@ -6,7 +6,7 @@ export async function createAccNoUsername(currentUser, setLoggedUser, username, 
     let postObj = {
         username : username, 
         email : userEmail,
-        bio: currentUser.bio,
+        bio: '',
         accountname: currentUser.displayName, 
         followers: [], 
         following: []
@@ -16,13 +16,16 @@ export async function createAccNoUsername(currentUser, setLoggedUser, username, 
     const q = query(collection(db, 'users'), where("email", "==", userEmail))
     const querySnapShot = await getDocs(q); 
     if (querySnapShot.docs.length == 0){
-        // if that user doesn't exist, create them 
+        // if that user doesn't exist, create them
         try{
-            const docRef = await addDoc(collection(db, "users"), postObj)
+            await addDoc(collection(db, "users"), postObj); 
+            setLoggedUser(postObj)
+            return null;
         }catch(err){
             console.log(err)
         }
-    }else {
+    }
+    else {
         // the user already exists, just return their username
         const user = querySnapShot.docs[0].data()
         if (user.username.length > 0){

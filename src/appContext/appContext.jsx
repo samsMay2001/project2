@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"; 
 import {collection, getDocs, orderBy, query} from 'firebase/firestore'
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 // import {db} from "../firebase";
 const appContext = createContext(null)
 export const AppContext = ({children})=> {
@@ -20,11 +20,11 @@ export const AppContext = ({children})=> {
         followers: [],
         following: []
     });  
-    const [userTab, setUserTab] = useState(false)
     const [homeTab, setHomeTab] = useState(false)
     const [inputVal, setInputVal] = useState("")
     const [hidden, setHidden] = useState(true)
     const [appFocus, setAppFocus] = useState(true); 
+    const [suggested, setSuggested] = useState([]); 
     async function getComments(){
         const q = query(collection(db, 'comments'), orderBy('timeStamp', 'asc'))
         const querySnapShot = await getDocs(q); 
@@ -50,10 +50,44 @@ export const AppContext = ({children})=> {
             setLoggedUser(loggedUserCopy); 
         }
     }
+    async function qualifyUser(){
+        const followersLimit = 1
+        try{
+            const q = query(collection(db, 'users')); 
+            const querySnapShot = await getDocs(q)
+            const users = querySnapShot.docs.map(user => user.data())
+            const qualifiedUsers = users.filter(item => 
+                item.followers.length >= followersLimit &&
+                item.username !== loggedUser.username
+                 )
+            return qualifiedUsers; 
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+    async function suggestedUsers(){
+        const qualifiedUsers = await qualifyUser()
+        let suggestedCopy = []
+        let iterationNum;  
+        if (qualifiedUsers.length> 3){
+            iterationNum = 3
+        }else {
+            iterationNum = qualifiedUsers.length
+        }
+        for (let i = 0; i < iterationNum; i++){
+            let randomIndex = Math.floor(Math.random()*((qualifiedUsers.length-1)+1))
+            suggestedCopy.push(qualifiedUsers[randomIndex]);  
+        }
+        setSuggested(suggestedCopy); 
+    }
     useEffect(()=> {
+        // localStorage.clear(); 
+        // auth.signOut();
         isUserLoggedIn();  
         getPosts(); 
         getComments();
+        suggestedUsers()
     }, [])
     return (
         <appContext.Provider value={{
@@ -82,7 +116,8 @@ export const AppContext = ({children})=> {
             hidden, 
             setHidden, 
             appFocus, 
-            setAppFocus
+            setAppFocus, 
+            suggested
         }}>
             {children}
         </appContext.Provider>

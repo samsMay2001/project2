@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { auth, db } from '../../firebase'
 import './authPrompt.css'
 import {getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged} from "firebase/auth"
-import { addDoc, collection, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { create } from '@mui/material/styles/createTransitions'
 import { useAppContext } from '../../appContext/appContext'
 import { createAccNoUsername } from './createAccNoUsername'
@@ -34,13 +34,15 @@ export const AuthPrompt = () => {
         const userValid = await validateUserName(newUsername); 
         if (userValid && user.email){
             try{
+
                 const q = query(collection(db, "users"), where('email', '==', user.email))
                 const querySnapShot = await getDocs(q)
-                const userRef = querySnapShot.docs[0].ref;
-                await updateDoc(userRef, {
+                const userRef = querySnapShot.docs[0].id;
+                // console.log(loggedUser); 
+                await updateDoc(doc(db, 'users', userRef), {
                     username: newUsername
                 })
-                setLocalStorage(navigate,newUsername, setLoggedUser, setUserLoggedIn, setUserTab, setHomeTab)
+                setLocalStorage(navigate,newUsername, setLoggedUser, setUserLoggedIn, setHomeTab)
             }catch(err){
                 console.log(err)
             }
@@ -51,8 +53,9 @@ export const AuthPrompt = () => {
         setUsername(""); 
     }
     async function createAccWrapper(currentUser){
-        const usernameExists = await createAccNoUsername(currentUser, setLoggedUser, username, setUserAlreadyExist);
+        const usernameExists = await createAccNoUsername(currentUser, setLoggedUser, username, setUserAlreadyExist); 
         if (usernameExists){
+
             setLocalStorage(navigate, usernameExists, setLoggedUser, setUserLoggedIn, setHomeTab); 
         }
     }
@@ -61,6 +64,7 @@ export const AuthPrompt = () => {
             if(currentUser){
                 setUser(currentUser); 
                 createAccWrapper(currentUser); 
+                // auth.signOut();
             }else {
                 setUser(null)
             }

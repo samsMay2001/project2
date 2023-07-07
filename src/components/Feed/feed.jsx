@@ -17,7 +17,6 @@ import { Widgets } from '@mui/icons-material';
 
 export const Feed = () => {
     const {posts, loggedUser, setHomeTab} = useAppContext()
-    // console.log(posts); 
     function handleHomeClick(){
         setHomeTab(true); 
     }

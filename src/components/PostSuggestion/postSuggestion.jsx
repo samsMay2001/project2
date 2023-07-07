@@ -10,7 +10,7 @@ export const PostSuggestion = ({accountname, username}) => {
                 <h4>@{username}</h4>
             </div>
             <div className="suggestion-follow">
-                Follow
+                View
             </div>
         </div>
     )

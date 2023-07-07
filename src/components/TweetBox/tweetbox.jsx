@@ -16,18 +16,19 @@ export const TweetBox = () => {
     }
     async function handleClick(){
         const postObj = {
-            displayName: 'Samuel Muhigirwa', 
+            displayName: loggedUser.accountname, 
             imageURL : imageURL,
             text : tweetMessage, 
             username : loggedUser.username, 
             verified : true,
             videoURL : videoURL, 
-            timeStamp : new Date().getTime()
+            timeStamp : new Date().getTime(), 
+            likes : []
         }
         if (videoURL || imageURL || tweetMessage){
             // http request endpoint to add a new post on mongodb
             try{
-                const docRef = await addDoc(collection(db, "posts"), postObj)
+                await addDoc(collection(db, "posts"), postObj)
                 const postsCopy = [ postObj, ...posts]
                 setPosts(postsCopy); 
                 setTweetMessage("")
