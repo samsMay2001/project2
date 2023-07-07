@@ -4,6 +4,7 @@ import { auth, db } from "../firebase";
 // import {db} from "../firebase";
 const appContext = createContext(null)
 export const AppContext = ({children})=> {
+    // console.log('a')
     const [uploadedVid, setUploadedVideo] = useState(null)
     const [uploadedImage, setUploadedImage] = useState(null)
     const [videoProgress, setVideoProgress] = useState(0)
@@ -68,18 +69,26 @@ export const AppContext = ({children})=> {
     }
     async function suggestedUsers(){
         const qualifiedUsers = await qualifyUser()
-        let suggestedCopy = []
+        let suggestedCopy = new Set(); 
         let iterationNum;  
-        if (qualifiedUsers.length> 3){
+        if (qualifiedUsers.length>= 3){
             iterationNum = 3
         }else {
             iterationNum = qualifiedUsers.length
         }
-        for (let i = 0; i < iterationNum; i++){
+
+        while (suggestedCopy.size < qualifiedUsers.length){
             let randomIndex = Math.floor(Math.random()*((qualifiedUsers.length-1)+1))
-            suggestedCopy.push(qualifiedUsers[randomIndex]);  
+            suggestedCopy.add(randomIndex); 
         }
-        setSuggested(suggestedCopy); 
+        const randomIndexArray = Array.from(suggestedCopy)
+        console.log(randomIndexArray)
+        const suggestedArray = []
+        for(let i = 0; i < randomIndexArray.length; i++){
+            suggestedArray.push(qualifiedUsers[randomIndexArray[i]])
+        }
+        // console.log(suggestedArray)
+        setSuggested(suggestedArray); 
     }
     useEffect(()=> {
         // localStorage.clear(); 

@@ -14,8 +14,11 @@ import { Explore } from '../Explore/explore';
 import { AuthPrompt } from '../AuthPromt/authPrompt';
 import { SideBar } from '../Sidebar/sidebar';
 import { Widgets } from '@mui/icons-material';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../../firebase';
 
 export const Feed = () => {
+    // console.log('a')
     const {posts, loggedUser, setHomeTab} = useAppContext()
     function handleHomeClick(){
         setHomeTab(true); 
@@ -31,6 +34,20 @@ export const Feed = () => {
         }
     }
     function handleExplore(){}
+    async function getDsisplayName(username){
+        try{
+            const q = query(collection(db,'users'), where('username', '==', username))
+            const querySnapShot = await getDocs(q); 
+            const user = querySnapShot.docs[0].data()
+            if (user){
+                // setDisplayName(user.accountname); 
+                return user.accountname
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path='/' element={
@@ -78,6 +95,7 @@ export const Feed = () => {
                                     imgSrc={item.imageURL} 
                                     postID={item.parentId}
                                     feed = {true}
+                                    accountname={item.displayName}
                                     />
                                 </div>
                             ))}

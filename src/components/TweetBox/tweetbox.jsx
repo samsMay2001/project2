@@ -1,7 +1,7 @@
 import { Button, Avatar, TextareaAutosize } from '@mui/material'
 import imgs from '../../assets/images.png'
 import './tweetbox.css'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { MediaUploder } from '../VideoUploader/mediauploader'
 import { PostPreview } from '../PostPreview/postpreview'
 import { useAppContext } from '../../appContext/appContext'

@@ -10,7 +10,7 @@ export const PostPreview = () => {
             </div>
             { (uploadedVid || uploadedImage)&&
                 <div className="upload-message">
-                    <h2>Progress: {(videoProgress).toFixed(0)}%</h2>
+                    {videoProgress && <h2>Progress: {(videoProgress).toFixed(0)}%</h2>}
                     <div>Longer videos may take a while to upload</div>
                 </div>
             }

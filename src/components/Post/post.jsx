@@ -89,10 +89,12 @@ export const Post = ({timestamp, likes,feed, accountname, username, verified, te
         }
     }
     async function getDsisplayName(){
+        // console.log('a')
         try{
             const q = query(collection(db,'users'), where('username', '==', username))
             const querySnapShot = await getDocs(q); 
             const user = querySnapShot.docs[0].data()
+            // console.log(user.accountname)
             if (user){
                 setDisplayName(user.accountname); 
             }

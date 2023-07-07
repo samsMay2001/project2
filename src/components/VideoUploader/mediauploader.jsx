@@ -15,26 +15,13 @@ export const MediaUploder = () => {
         myRef.current.click(); 
     }
     async function  handleChange (event) {
-
         const selectedFile = event.target.files[0]; 
         if (selectedFile){ 
             const filename = `${Date.now()}-${selectedFile.name}`; 
             const storageRef = ref(storage, filename);
             setMedia(selectedFile); 
             const uploadTask = uploadBytesResumable(storageRef, selectedFile); 
-            // http request to upload file to GridFSBucket. ************
-            // const fileData = new FormData(); 
-            // fileData.append('file', selectedFile); 
-            // fetch('http://localhost:4000/upload', {
-            //     method: 'POST',
-            //     body: fileData
-            // })
-            // .then( res => {
-            //     console.log(res); 
-            // })
-            // .catch(err => {
-            //     console.log(err);
-            // })
+
             uploadTask.on('state_changed', (snapshot) => {
                 const progress =   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 setVideoProgress(progress)
@@ -43,6 +30,7 @@ export const MediaUploder = () => {
             }, async ()=> {
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref); 
                 setMediaURL(selectedFile, downloadURL); 
+                myRef.current.value = ''; 
             })
         }
     }
