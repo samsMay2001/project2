@@ -16,6 +16,7 @@ import { SideBar } from '../Sidebar/sidebar';
 import { Widgets } from '@mui/icons-material';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { ExploreList } from '../ExploreList/exporeList';
 
 export const Feed = () => {
     // console.log('a')
@@ -73,8 +74,8 @@ export const Feed = () => {
                 </>
                 
             }>
-                <Route path='explore'  element={<Explore/>}/>
-                <Route element={loggedUser.username ? <Outlet/> : <Explore/>}>
+                <Route path='explore'  element={<ExploreList/>}/>
+                <Route element={loggedUser.username ? <Outlet/> : <ExploreList/>}>
                     <Route path='feed' element={
                         <>
                             {(loggedUser.username) && <TweetBox/>}

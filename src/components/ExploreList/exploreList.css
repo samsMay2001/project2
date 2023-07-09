@@ -1,0 +1,5 @@
+.explore-list{
+    /* border: 1px dashed grey; */
+    --explore-list-padding : 19px; 
+    padding: var(--explore-list-padding); 
+}

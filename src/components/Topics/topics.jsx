@@ -4,13 +4,14 @@ import { Topic } from '../Topic/topic'
 
 export const Topics = () => {
     const [topicList, setTopicList] = useState([
-        'Travel', 
-        "Men's Fashion",
+        'Featured', 
+        "Fashion",
+        "Cars",
         'Sports', 
-        "Politcs", 
-        "Science", 
+        "Travel", 
+        "Music", 
         "Football", 
-        "Formula 1"
+        "Formula 1", 
     ])
     return (
         <div className='topics'>
@@ -19,7 +20,7 @@ export const Topics = () => {
             </div>
             <div className="topic-list">
                 {topicList.map((item, index)=> (
-                    <Topic topic={item}/>
+                    <Topic key={index} topic={item}/>
                 ))}
             </div>
         </div>

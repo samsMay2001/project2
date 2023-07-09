@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"; 
-import {collection, getDocs, orderBy, query} from 'firebase/firestore'
+import {collection, getDocs, orderBy, query, where} from 'firebase/firestore'
 import { auth, db } from "../firebase";
 // import {db} from "../firebase";
 const appContext = createContext(null)
@@ -34,13 +34,28 @@ export const AppContext = ({children})=> {
     }
     async function getPosts(){
         const q = query(collection(db, 'posts'), orderBy('timeStamp', 'desc'))
-        const querySnapShot = await getDocs(q); 
-        
-        const postArray = querySnapShot.docs.map(doc => doc.data())
-        postArray.map((post, index) => {
-            post.parentId = querySnapShot.docs[index].id
-        })
+        const querySnapShot = await getDocs(q)
+        const postArray =  querySnapShot.docs.map(doc => doc.data())
+        const test = []
+        for (let i = 0; i<postArray.length; i++){
+            postArray[i].parentId = querySnapShot.docs[i].id; 
+            postArray[i].displayName = await setPostDisplayName(postArray[i]) 
+        }
+        // console.log(postArray)
         setPosts(postArray)
+    }
+    async function setPostDisplayName(post){
+        try{
+            const q = query(collection(db,'users'), where('username', '==', post.username))
+            const querySnapShot = await getDocs(q); 
+            const user = querySnapShot.docs[0].data()
+            if (user){
+                return user.accountname
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
     }
     function isUserLoggedIn(){
         // localStorage.clear()
@@ -82,7 +97,6 @@ export const AppContext = ({children})=> {
             suggestedCopy.add(randomIndex); 
         }
         const randomIndexArray = Array.from(suggestedCopy)
-        console.log(randomIndexArray)
         const suggestedArray = []
         for(let i = 0; i < randomIndexArray.length; i++){
             suggestedArray.push(qualifiedUsers[randomIndexArray[i]])

@@ -7,7 +7,7 @@ import { useAppContext } from '../../appContext/appContext'
 import {useNavigate} from 'react-router-dom'
 
 export const UserSummary = () => {
-    const {setHomeTab, setLoggedUser, setUserLoggedIn, setInputVal} = useAppContext()
+    const {setHomeTab, setLoggedUser, setUserLoggedIn, setInputVal, loggedUser} = useAppContext()
     const navigate = useNavigate()
     return (
         <div className='user-summary'>
@@ -16,7 +16,7 @@ export const UserSummary = () => {
                 <img src={imgs} alt='' />
             </div>
             <div className='engagement'>
-                <h2>{'BMW M4'}</h2>
+                <h2>{loggedUser.accountname}</h2>
                 <div className="engagement-box">
                     <h5>10</h5>
                     <h4>Posts</h4>

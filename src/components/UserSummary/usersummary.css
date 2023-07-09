@@ -50,7 +50,7 @@
 }
 .engagement-box{
     display: flex;
-    --engagement-box-padding: 0px;
+    --engagement-box-padding: 2px;
 }
 .engagement-box:last-child{
     border-right: 0px;
